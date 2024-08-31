@@ -15,4 +15,6 @@ add_executable(FOK_GYEM_Tetris_native
         econio.h
         field.cpp
         field.h
-        tetrimino.cpp)
+        tetrimino.cpp
+        common.cpp
+        common.h)

@@ -5,6 +5,7 @@
 #ifndef TETRIMINO_H
 #define TETRIMINO_H
 
+#include "common.h"
 #include "config.h"
 
 class field;
@@ -289,13 +290,17 @@ public:
         }
     }
 
-    unsigned char get(const int x, const int y) const {
+    Tetrimino() : Tetrimino(static_cast<tetriminoType>(getRand())) {}
+
+    unsigned char get(const int x, const int y, const tetriminoRotation r) const {
         if (typ == NONE) return 0;
-        return tetriminos[typ][rot][y][x];
+        return tetriminos[typ][r][y][x];
     }
 
-    void ror() { rot = rot++; }
-    void rol() { rot = rot--; }
+    unsigned char get(const int x, const int y) const { return get(x, y, rot); }
+
+    // Probably not the best that the tetrimino is asking for the field, but ehh
+    bool rotate(bool right, const field& f);
 
     bool mov(bool right, const field& f);
     bool fall(const field& f);

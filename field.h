@@ -8,6 +8,8 @@
 #include "config.h"
 #include "tetrimino.h"
 
+inline short scoreArr[] = {1, 3, 5, 8, 12 };
+
 class field {    
     /**
      * Merge current tetrimino onto the final map
@@ -15,14 +17,24 @@ class field {
      */
     bool merge();
 
+    bool tetris = false;
+
 public:
-    unsigned char map[SCREEN_ROW_CNT][SCREEN_COL_CNT]{0};
+    unsigned short map[SCREEN_ROW_CNT][SCREEN_COL_CNT]{0};
 
     Tetrimino current; //!< Current (moving tetrimino)
     Tetrimino next;
-    Tetrimino hold;
+    Tetrimino hold = Tetrimino(NONE);
 
-    field() : current(NONE), next(NONE), hold(NONE) {}
+    int score = 0;
+    unsigned int getSpeed() const { return SPD_BASE - (score/LVL_CURVE) * SPD_CURVE; }
+
+    unsigned long prevFrame = 0;
+
+    bool fall();
+    bool mov(bool right) { return current.mov(right, *this); }
+
+    bool rot(bool right) { return current.rotate(right, *this); }
 
     /**
      * Finish current tetrimino's movement and set up the next

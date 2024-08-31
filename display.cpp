@@ -34,13 +34,9 @@ void init() {
 #else
 
     econio_clrscr();
+    econio_rawmode();
 
 #endif
-
-}
-
-void write(const unsigned char c) {
-
 
 }
 

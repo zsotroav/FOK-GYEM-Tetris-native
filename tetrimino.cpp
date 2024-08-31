@@ -21,6 +21,24 @@ bool Tetrimino::mov(const bool right, const field& f) {
     return true;
 }
 
+bool Tetrimino::rotate(const bool right, const field& f) {
+    if (typ == NONE) return false;
+
+    const auto next = (right ? rot++ : rot--);
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (get(i, j, next) == 0) continue;
+            if (right  && x + i >= SCREEN_COL_CNT) return false;
+            if (!right && x + i < 0) return false;
+            if (f.map[this->getY()+j][this->getX()+i] != 0) return false;
+        }
+    }
+
+    rot = next;
+    return true;
+}
+
 bool Tetrimino::fall(const field& f) {
     if (typ == NONE) return false;
     const int end = y + 1;
@@ -28,6 +46,7 @@ bool Tetrimino::fall(const field& f) {
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
             if (get(i, j) == 0) continue;
+            if (end + j >= SCREEN_ROW_CNT) return false;
             if (f.map[end+j][x+i] != 0) return false;
         }
     }
