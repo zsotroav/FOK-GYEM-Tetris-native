@@ -2,7 +2,7 @@
 // Created by zsotroav on 2024-08-20.
 //
 
-#include "display.h"
+#include "io.h"
 #include "field.h"
 
 #ifndef NONARDUINO
@@ -18,7 +18,7 @@
 #endif
 
 
-void init_display() {
+void init_io() {
 
 #ifndef NONARDUINO
 
@@ -30,6 +30,13 @@ void init_display() {
     driver_setBuffer(buff, DRV_DATABUFF_SIZE);
     driver_forceWriteScreen();
 
+    pinMode(CTRL_HARD_DROP, INPUT);
+    pinMode(CTRL_SOFT_DROP, INPUT);
+    pinMode(CTRL_MOV_R, INPUT);
+    pinMode(CTRL_MOV_L, INPUT);
+    pinMode(CTRL_ROT_R, INPUT);
+    pinMode(CTRL_ROT_L, INPUT);
+    pinMode(CTRL_HOLD, INPUT);
 
 #else
 
@@ -40,8 +47,9 @@ void init_display() {
 
 }
 
+
+#ifdef NONARDUINO
 void print(const field& f) {
-    #ifdef NONARDUINO
     econio_clrscr();
 
     for (int i = 0; i < SCREEN_ROW_CNT; ++i) {
@@ -58,5 +66,17 @@ void print(const field& f) {
             std::cout << "Z";
         }
     }
-    #endif
+    
 }
+
+#else
+
+void print(const field& f) {
+
+}
+
+int arduinoGetInput() {
+    return 0;
+}
+
+#endif

@@ -6,8 +6,18 @@
 #define DISPLAY_H
 #include "field.h"
 
-void init_display();
+void init_io();
 
 void print(const field& f);
+
+#ifndef NONARDUINO 
+
+int arduinoGetInput();
+
+#else
+
+void delay(double sec) { econio_sleep(sec); }
+
+#endif
 
 #endif //DISPLAY_H

@@ -5,18 +5,59 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define SCREEN_COL_CNT 7
-#define SCREEN_ROW_CNT 24
-#define SCREEN_SAFE_ROW 20
+////////////////////////////////////
+// Display settings IN PORTRAIT MODE
 
+// Column count of display
+#define SCREEN_COL_CNT 7
+// Row count of full display
+#define SCREEN_ROW_CNT 24
+// Screen number of safe rows the player can use to play
+#define SCREEN_SAFE_ROW 20
+// First row tha player can use
 #define SCREEN_PLAY_ROW (SCREEN_ROW_CNT - SCREEN_SAFE_ROW)
 
+///////////////////////////////////////
+// Gameplay - spawn point of tetriminos
+
+// Horizontal tetrimino spawn point
 #define SPAWN_X 3
+// Vertical tetrimino spawn point
 #define SPAWN_Y 5
 
-#define SPD_BASE 800
-#define SPD_CURVE 130
+//////////////////////////////////////////////
+// Difficulty settings (tetrimino fall speeds)
 
+// Base speed (ms/fall) of tetrimino
+#define SPD_BASE 800
+// Speed increase (ms/lvl) of tetrimino
+#define SPD_CURVE 130
+// Speed increases every x levels
 #define LVL_CURVE 10
 
-#endif //CONFIG_H
+/////////////////////////
+// Input Control settings
+
+#ifdef NONARDUINO
+
+#define CTRL_HARD_DROP 'w'
+#define CTRL_SOFT_DROP 's'
+#define CTRL_MOV_R 'd'
+#define CTRL_MOV_L 'a'
+#define CTRL_ROT_R KEY_LEFT
+#define CTRL_ROT_L KEY_RIGHT
+#define CTRL_HOLD KEY_UP
+
+#else //TODO: Actual layout
+
+#define CTRL_HARD_DROP 0
+#define CTRL_SOFT_DROP 1
+#define CTRL_MOV_R 2
+#define CTRL_MOV_L 3
+#define CTRL_ROT_R 4
+#define CTRL_ROT_L 5
+#define CTRL_HOLD 6
+
+#endif //NONARDUINO
+
+#endif // CONFIG_H

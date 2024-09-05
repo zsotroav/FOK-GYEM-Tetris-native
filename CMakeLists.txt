@@ -7,7 +7,7 @@ add_compile_definitions(NONARDUINO)
 
 add_executable(FOK_GYEM_Tetris_native
         include/common.h
-        include/display.h
+        include/io.h
         include/field.h
         include/config.h
         include/tetrimino.h
@@ -15,7 +15,7 @@ add_executable(FOK_GYEM_Tetris_native
         src/tetrimino.cpp
         src/main.cpp
         src/common.cpp
-        src/display.cpp
+        src/io.cpp
         src/field.cpp
 
         lib/econio/econio.h
