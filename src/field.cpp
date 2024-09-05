@@ -45,13 +45,30 @@ bool field::finishMove() {
     score += scoreArr[cleared-1];
 
     for (int i = 0; i < SCREEN_COL_CNT; ++i) {
-        if (map[SPAWN_X][i] != 0) return false;
+        if (map[SPAWN_X+2][i] == 0) continue;
+        valid = false;
+        return false;
     }
 
+    canSwap = true;
     return true;
 }
 
 bool field::fall() {
     if (current.fall(*this)) return true;
-    return this->finishMove();
+    this->finishMove();
+    return false;
+}
+
+void field::swap() {
+    if (!canSwap) return;
+    canSwap = false;
+    if (hold.getType() == NONE) hold = Tetrimino();
+
+    hold.resetLoc();
+    current.resetLoc();
+
+    const auto tmp = hold;
+    hold = current;
+    current = tmp;
 }

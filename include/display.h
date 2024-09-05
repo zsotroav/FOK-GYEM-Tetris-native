@@ -6,7 +6,7 @@
 #define DISPLAY_H
 #include "field.h"
 
-void init();
+void init_display();
 
 void print(const field& f);
 

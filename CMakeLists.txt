@@ -6,15 +6,18 @@ set(CMAKE_CXX_STANDARD 17)
 add_compile_definitions(NONARDUINO)
 
 add_executable(FOK_GYEM_Tetris_native
-        main.cpp
-        tetrimino.h
-        config.h
-        display.cpp
-        display.h
-        econio.c
-        econio.h
-        field.cpp
-        field.h
-        tetrimino.cpp
-        common.cpp
-        common.h)
+        include/common.h
+        include/display.h
+        include/field.h
+        include/config.h
+        include/tetrimino.h
+
+        src/tetrimino.cpp
+        src/main.cpp
+        src/common.cpp
+        src/display.cpp
+        src/field.cpp
+
+        lib/econio/econio.h
+        lib/econio/econio.c
+)

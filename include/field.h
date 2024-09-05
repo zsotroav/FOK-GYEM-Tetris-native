@@ -19,6 +19,9 @@ class field {
 
     bool tetris = false;
 
+    bool canSwap = true;
+    bool valid = true;
+
 public:
     unsigned short map[SCREEN_ROW_CNT][SCREEN_COL_CNT]{0};
 
@@ -31,10 +34,13 @@ public:
 
     unsigned long prevFrame = 0;
 
+    bool isValid() { return valid; }
+
     bool fall();
     bool mov(bool right) { return current.mov(right, *this); }
-
     bool rot(bool right) { return current.rotate(right, *this); }
+
+    void swap();
 
     /**
      * Finish current tetrimino's movement and set up the next

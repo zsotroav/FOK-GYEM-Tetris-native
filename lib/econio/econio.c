@@ -1,7 +1,6 @@
-// NOTE: This version of econio has been modified to use wprintf in non-windows mode
-
 #include "econio.h"
 
+#ifdef NONARDUINO
 #if defined(_WIN32) || defined(_WIN64)
 
 
@@ -153,6 +152,7 @@ void econio_sleep(double sec) {
 
 #else // defined _WIN32
 
+
 #include <assert.h>
 #include <stdio.h>
 #include <termios.h>
@@ -163,14 +163,13 @@ void econio_sleep(double sec) {
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
-#include <wchar.h>
 
 
 void econio_textcolor(int color) {
     static int colormap[] = { 30, 34, 32, 36, 31, 35, 33, 37, 90, 94, 92, 96, 91, 95, 93, 97, 39 };
 
     assert(color >= 0 && color <= 16);
-    wprintf(L"\033[%dm", colormap[color]);
+    printf("\033[%dm", colormap[color]);
 }
 
 
@@ -178,17 +177,17 @@ void econio_textbackground(int color) {
     static int colormap[] = { 40, 44, 42, 46, 41, 45, 43, 47, 100, 104, 102, 106, 101, 105, 103, 107, 49 };
 
     assert(color >= 0 && color <= 16);
-    wprintf(L"\033[%dm", colormap[color]);
+    printf("\033[%dm", colormap[color]);
 }
 
 
 void econio_gotoxy(int x, int y) {
-    wprintf(L"\033[%d;%dH", y+1, x+1);
+    printf("\033[%d;%dH", y+1, x+1);
 }
 
 
 void econio_clrscr() {
-    wprintf(L"\033[2J");
+    printf("\033[2J");
     econio_gotoxy(0, 0);
 }
 
@@ -199,7 +198,7 @@ void econio_flush() {
 
 
 void econio_set_title(char const *title) {
-    wprintf(L"\033]2;%s\007", title);
+    printf("\033]2;%s\007", title);
 }
 
 
@@ -334,3 +333,4 @@ void econio_sleep(double sec) {
 
 
 #endif // defined _WIN32
+#endif // NONARDUINO

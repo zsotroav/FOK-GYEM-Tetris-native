@@ -272,6 +272,19 @@ public:
     int getX() const { return x; }
     int getY() const { return y; }
 
+    tetriminoType getType() const { return typ; }
+
+    void resetLoc(const int x = SPAWN_X, const int y = SPAWN_Y) {
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+                if (get(j, i) != 2) continue;
+                this->x = x - j;
+                this->y = y - i;
+                return;
+            }
+        }
+    }
+
     explicit Tetrimino(const tetriminoType t, const tetriminoRotation r = ROTA,
                        const int x = SPAWN_X, const int y = SPAWN_Y
                        ) : typ(t), rot(r) {
@@ -280,14 +293,8 @@ public:
             this->y = 0;
             return;
         }
-        for (int i = 0; i < 5; ++i) {
-            for (int j = 0; j < 5; ++j) {
-                if (get(j, i) != 2) continue;
-                this->x = x - j;
-                this->y = y - i;
-                i = j = 6; // break would only break one level
-            }
-        }
+
+        resetLoc(x, y);
     }
 
     Tetrimino() : Tetrimino(static_cast<tetriminoType>(getRand())) {}

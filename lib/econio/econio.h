@@ -1,3 +1,5 @@
+#ifdef NONARDUINO
+
 #ifndef ECONIO_H
 #define ECONIO_H
 
@@ -154,3 +156,5 @@ void econio_sleep(double sec);
 #endif
 
 #endif
+
+#endif // NONARDUINO

@@ -3,22 +3,22 @@
 //
 
 #include "display.h"
-
-#include <iostream>
-
 #include "field.h"
 
 #ifndef NONARDUINO
+
 #include <arduino.h>
 #include "driver.h"
 
 #else
+
+#include <iostream>
 #include "econio.h"
 
 #endif
 
 
-void init() {
+void init_display() {
 
 #ifndef NONARDUINO
 
@@ -41,6 +41,7 @@ void init() {
 }
 
 void print(const field& f) {
+    #ifdef NONARDUINO
     econio_clrscr();
 
     for (int i = 0; i < SCREEN_ROW_CNT; ++i) {
@@ -57,4 +58,5 @@ void print(const field& f) {
             std::cout << "Z";
         }
     }
+    #endif
 }

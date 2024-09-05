@@ -1,19 +1,19 @@
+#ifdef NONARDUINO
 #include <iostream>
+#else
+#include <Arduino.h>
+#endif
 
 #include "common.h"
 #include "display.h"
 #include "econio.h"
-#include "tetrimino.h"
 
 field f;
 
 void setup() {
-    init();
+    init_display();
     f.prevFrame = millis();
-
 }
-
-int it = 0;
 
 void loop() {
     unsigned long t = millis();
@@ -27,13 +27,13 @@ void loop() {
     if (!econio_kbhit()) { econio_sleep(0.2); return; }
 
     switch (econio_getch()) {
-        case 'w': /* hard drop */
-        case 's': /* soft drop */ break;
+        case 'w': while (f.fall()) {} break;
+        case 's': f.fall(); econio_sleep(0.1); break;
         case 'a': f.mov(false); break;
         case 'd':  f.mov(true); break;
-        case KEY_LEFT: f.rot(false);  break;
-        case KEY_RIGHT: f.rot(true);  break;
-        case KEY_UP: /* store */
+        case KEY_LEFT: f.rot(false); break;
+        case KEY_RIGHT: f.rot(true); break;
+        case KEY_UP: f.swap(); break;
         default: break;
     }
 #else

@@ -57,3 +57,6 @@ cmake-build-*/
 *.pdf
 
 *.zip
+
+.pio/
+platformio.ini

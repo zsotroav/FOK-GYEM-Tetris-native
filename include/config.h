@@ -14,8 +14,8 @@
 #define SPAWN_X 3
 #define SPAWN_Y 5
 
-#define SPD_BASE 10
-#define SPD_CURVE 100
+#define SPD_BASE 800
+#define SPD_CURVE 130
 
 #define LVL_CURVE 10
 
