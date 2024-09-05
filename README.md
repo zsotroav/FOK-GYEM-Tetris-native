@@ -16,6 +16,7 @@ is recommended for the cloning of the submodule with the following settings:
 ### Cloning commands
 ```sh
 git clone https://github.com/zsotroav/FOK-GYEM-Tetris-native
+cd FOK-GYEM-Tetris-native
 git submodule update --init --recursive
 cd lib/fgy-driver
 git sparse-checkout init --no-cone
