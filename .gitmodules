@@ -1,0 +1,3 @@
+[submodule "lib/fgy-driver"]
+	path = lib/fgy-driver
+	url = https://github.com/zsotroav/FOK-GYEM.git
