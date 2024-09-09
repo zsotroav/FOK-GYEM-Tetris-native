@@ -10,8 +10,11 @@ is recommended for the cloning of the submodule with the following settings:
 ```
 /*
 !src/main.cpp
-!src/serialCom.cpp
 ```
+
+This is only required to avoid conflicting `main` and `loop` functions.
+A regular recursive clone works perfectly as well, but a manual delete or
+additional compiler settings may be required.
 
 ### Cloning commands
 ```sh
@@ -20,7 +23,7 @@ cd FOK-GYEM-Tetris-native
 git submodule update --init --recursive
 cd lib/fgy-driver
 git sparse-checkout init --no-cone
-git sparse-checkout set /* !src/main.cpp !src/serialCom.cpp !include/serialCom.h
+git sparse-checkout set /* !src/main.cpp
 git sparse-checkout reapply
 cd ../..
 ```
