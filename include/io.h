@@ -12,10 +12,12 @@ void print(const field& f);
 
 #ifndef NONARDUINO 
 
+// Reimplementation of the econio getinput for multi-platform functionality
 int arduinoGetInput();
 
 #else
 
+// Reimplementation of the Arduino delay function using econio
 void delay(double sec) { econio_sleep(sec); }
 
 #endif

@@ -24,6 +24,7 @@ void loop() {
     print(f);
 
 #ifdef NONARDUINO
+    // TODO: Squash these?
     if (!econio_kbhit()) { delay(0.2); return; }
 
     switch (econio_getch()) {
