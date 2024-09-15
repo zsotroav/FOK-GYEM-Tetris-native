@@ -30,6 +30,10 @@ void init_io() {
     driver_setBuffer(buff, DRV_DATABUFF_SIZE);
     driver_forceWriteScreen();
 
+    buff[6] = 0x55;
+    driver_setBuffer(buff, DRV_DATABUFF_SIZE);
+    driver_forceWriteScreen();
+
     pinMode(CTRL_HARD_DROP, INPUT);
     pinMode(CTRL_SOFT_DROP, INPUT);
     pinMode(CTRL_MOV_R, INPUT);
@@ -73,8 +77,33 @@ void print(const field& f) {
 
 #else
 
-void print(const field& f) {
+uint8_t buff[DRV_DATABUFF_SIZE] = {0};
 
+void print(const field& f) {
+    memset(buff, 0, DRV_DATABUFF_SIZE);
+
+    // Field base data
+    for (size_t i = 0; i < DRV_DATABUFF_SIZE; ++i) {
+        for (size_t j = 0; j < 8; j++) {
+            buff[i] = buff[i] << 1;
+            buff[i] |= (f.map[i/3][ (i%3)*8 +j] == 1);
+        }
+    }
+
+    // Current tetrimino
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 5; ++j) {
+            if (f.current.get(j, i) == 0) continue;
+
+            // econio_gotoxy(f.current.getX()+j, f.current.getY()+i);
+            uint8_t d = (0x01 << ((f.current.getY()+i)%8));
+
+            buff[ 3*(f.current.getX()+j) + 3-(f.current.getY()+i)/8 ] = d;
+        }
+    }
+
+    driver_setBuffer(buff, DRV_DATABUFF_SIZE);
+    driver_writeScreen();
 }
 
 int arduinoGetInput() {
