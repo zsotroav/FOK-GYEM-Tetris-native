@@ -49,7 +49,7 @@ enum tetriminoType {
 };
 
 // type x rot x hori x vert
-inline unsigned char tetriminos[7][4][5][5] =
+const unsigned char tetriminos[7][4][5][5] =
 {
     { // Square
         {

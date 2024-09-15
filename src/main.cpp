@@ -30,6 +30,8 @@ void loop() {
     switch (econio_getch()) {
 #else
     switch (arduinoGetInput()) {
+#endif
+
         case CTRL_HARD_DROP: while (f.fall()) {} break;
         case CTRL_SOFT_DROP: f.fall(); delay(0.1); break;
         case CTRL_MOV_L: f.mov(false); break;
@@ -39,7 +41,6 @@ void loop() {
         case CTRL_HOLD:  f.swap();     break;
         default: break;
     }
-#endif
 }
 
 // if not running on arduino

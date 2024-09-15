@@ -8,7 +8,7 @@
 #include "config.h"
 #include "tetrimino.h"
 
-inline short scoreArr[] = {1, 3, 5, 8, 12 };
+const short scoreArr[] = {1, 3, 5, 8, 12 };
 
 class field {    
     /**

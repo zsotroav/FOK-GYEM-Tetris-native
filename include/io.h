@@ -17,8 +17,10 @@ int arduinoGetInput();
 
 #else
 
+#include "econio.h"
+
 // Reimplementation of the Arduino delay function using econio
-void delay(double sec) { econio_sleep(sec); }
+inline void delay(double sec) { econio_sleep(sec); }
 
 #endif
 

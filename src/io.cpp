@@ -52,6 +52,7 @@ void init_io() {
 void print(const field& f) {
     econio_clrscr();
 
+    // Field base data
     for (int i = 0; i < SCREEN_ROW_CNT; ++i) {
         for (int j = 0; j < SCREEN_COL_CNT; ++j) {
             std::cout << ((f.map[i][j] > 0) ? "X" : " ");
@@ -59,6 +60,7 @@ void print(const field& f) {
         std::cout << std::endl;
     }
 
+    // Current tetrimino
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             econio_gotoxy(f.current.getX()+j, f.current.getY()+i);
@@ -77,7 +79,7 @@ void print(const field& f) {
 
 int arduinoGetInput() {
     // TODO: Ardunino input
-    return 0;
+    return 999;
 }
 
 #endif
