@@ -25,7 +25,7 @@ bool field::finishMove() {
     current = next;
     next = Tetrimino(static_cast<tetriminoType>(getRand()));
 
-    char cleared = 0;
+    int cleared = 0;
 
     for (int i = SCREEN_ROW_CNT-1; i > SPAWN_Y; --i) {
         bool ok = true;
@@ -42,7 +42,7 @@ bool field::finishMove() {
     }
 
     if (tetris && cleared == 4) cleared++;
-    score += scoreArr[cleared-1];
+    score += scoreArr[cleared];
 
     for (int i = 0; i < SCREEN_COL_CNT; ++i) {
         if (map[SPAWN_X+2][i] == 0) continue;

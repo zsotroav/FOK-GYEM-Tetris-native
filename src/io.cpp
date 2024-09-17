@@ -79,26 +79,34 @@ void print(const field& f) {
 
 uint8_t buff[DRV_DATABUFF_SIZE] = {0};
 
-void print(const field& f) {
-    memset(buff, 0, DRV_DATABUFF_SIZE);
-
-    // Field base data
-    for (size_t i = 0; i < DRV_DATABUFF_SIZE; ++i) {
-        for (size_t j = 0; j < 8; j++) {
-            buff[i] = buff[i] << 1;
-            buff[i] |= (f.map[i/3][ (i%3)*8 +j] == 1);
+void bake(uint8_t baked[SCREEN_COL_CNT][SCREEN_ROW_CNT], const field& f) {
+    for (size_t x = 0; x < SCREEN_COL_CNT; x++) {
+        for (size_t y = 0; y < SCREEN_ROW_CNT; y++) {
+            if (f.map[y][x] == 0) continue;
+            baked[x][y] = 1;
         }
     }
-
-    // Current tetrimino
+    
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             if (f.current.get(j, i) == 0) continue;
+            baked[j + f.current.getX()][i + f.current.getY()] = 1;
+        }
+    }
+}
 
-            // econio_gotoxy(f.current.getX()+j, f.current.getY()+i);
-            uint8_t d = (0x01 << ((f.current.getY()+i)%8));
+void print(const field& f) {
+    memset(buff, 0, DRV_DATABUFF_SIZE);
 
-            buff[ 3*(f.current.getX()+j) + 3-(f.current.getY()+i)/8 ] = d;
+    uint8_t baked[SCREEN_COL_CNT][SCREEN_ROW_CNT] = {0};
+    bake(baked, f);
+
+    for (size_t x = 0; x < SCREEN_COL_CNT; x++) {
+        for (size_t y = 0; y < SCREEN_ROW_CNT; y++) {
+            if (baked[x][y] == 0) continue;
+        
+            const int b = x * SCREEN_ROW_CNT - y - 1;
+            buff[b/8] |= (0x80 >> b%8);
         }
     }
 

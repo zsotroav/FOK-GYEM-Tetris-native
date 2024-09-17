@@ -8,7 +8,7 @@
 #include "config.h"
 #include "tetrimino.h"
 
-const short scoreArr[] = {1, 3, 5, 8, 12 };
+const short scoreArr[] = {0, 1, 3, 5, 8, 12 };
 
 class field {    
     /**
@@ -23,7 +23,7 @@ class field {
     bool valid = true;
 
 public:
-    unsigned short map[SCREEN_ROW_CNT][SCREEN_COL_CNT]{0};
+    unsigned char map[SCREEN_ROW_CNT][SCREEN_COL_CNT]{0};
 
     Tetrimino current; //!< Current (moving tetrimino)
     Tetrimino next;
