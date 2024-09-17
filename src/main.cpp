@@ -19,7 +19,7 @@ void loop() {
     unsigned long t = millis();
     if (f.prevFrame + f.getSpeed() < t) {
         f.fall();
-        f.prevFrame = millis();
+        f.prevFrame = t;
     }
     print(f);
 
@@ -44,7 +44,9 @@ void loop() {
 }
 
 // if not running on arduino
+#ifdef NONARDUINO
 int main() {
     setup();
     while(true) loop();
 }
+#endif

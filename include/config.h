@@ -50,13 +50,13 @@
 
 #else //TODO: Actual layout
 
-#define CTRL_HARD_DROP 0
-#define CTRL_SOFT_DROP 1
-#define CTRL_MOV_R 2
-#define CTRL_MOV_L 3
-#define CTRL_ROT_R 4
-#define CTRL_ROT_L 5
-#define CTRL_HOLD 6
+#define CTRL_HARD_DROP A4
+#define CTRL_SOFT_DROP A2
+#define CTRL_MOV_R A1
+#define CTRL_MOV_L A3
+#define CTRL_ROT_R A5
+#define CTRL_ROT_L 0
+#define CTRL_HOLD 1
 
 #endif //NONARDUINO
 
