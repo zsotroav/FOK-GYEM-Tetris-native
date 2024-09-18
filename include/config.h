@@ -14,16 +14,16 @@
 #define SCREEN_ROW_CNT 24
 // Screen number of safe rows the player can use to play
 #define SCREEN_SAFE_ROW 20
-// First row tha player can use
+// First row that the player can use
 #define SCREEN_PLAY_ROW (SCREEN_ROW_CNT - SCREEN_SAFE_ROW)
 
 ///////////////////////////////////////
 // Gameplay - spawn point of tetriminos
 
 // Horizontal tetrimino spawn point
-#define SPAWN_X 3
+#define SPAWN_X 4
 // Vertical tetrimino spawn point
-#define SPAWN_Y 5
+#define SPAWN_Y 6
 
 //////////////////////////////////////////////
 // Difficulty settings (tetrimino fall speeds)

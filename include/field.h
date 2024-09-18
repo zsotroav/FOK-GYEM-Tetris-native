@@ -23,7 +23,7 @@ class field {
     bool valid = true;
 
 public:
-    unsigned char map[SCREEN_ROW_CNT][SCREEN_COL_CNT]{0};
+    unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
 
     Tetrimino current; //!< Current (moving tetrimino)
     Tetrimino next;
@@ -47,6 +47,19 @@ public:
      * @retruns success notice
      */
     bool finishMove();
+
+    field() {
+        for (int i = 0; i < SCREEN_COL_CNT+2; i++) {
+            map[0][i] = 1;
+            map[SCREEN_PLAY_ROW][i] = 1;
+            map[SCREEN_ROW_CNT+1][i] = 1;
+        }
+        for (int i = 0; i < SCREEN_ROW_CNT+2; i++) {
+            map[i][0] = 1;
+            map[i][SCREEN_COL_CNT+1] = 1;
+        }
+        
+    }
 };
 
 

@@ -27,24 +27,27 @@ bool field::finishMove() {
 
     int cleared = 0;
 
-    for (int i = SCREEN_ROW_CNT-1; i > SPAWN_Y; --i) {
+    for (int i = SCREEN_ROW_CNT; i > SCREEN_PLAY_ROW; --i) {
         bool ok = true;
-        for (int j = 0; j < SCREEN_COL_CNT; ++j) {
+        for (int j = 1; j <= SCREEN_COL_CNT; ++j) {
             if (map[i][j] == 0) { ok = false; break; }
         }
         if (!ok) continue;
 
         for (int j = i; j > SCREEN_PLAY_ROW+1; --j) {
-            for (int k = 0; k < SCREEN_COL_CNT; ++k) map[j][k] = map[j-1][k];
+            for (int k = 1; k <= SCREEN_COL_CNT; ++k) map[j][k] = map[j-1][k];
         }
         cleared++;
-        --i;
+        ++i; // Go back to check the now shifted down row again
     }
 
+    // Handle back-to-back tetris (4x clear)
     if (tetris && cleared == 4) cleared++;
+    tetris = (cleared == 4);
+
     score += scoreArr[cleared];
 
-    for (int i = 0; i < SCREEN_COL_CNT; ++i) {
+    for (int i = 1; i <= SCREEN_COL_CNT; ++i) {
         if (map[SPAWN_X+2][i] == 0) continue;
         valid = false;
         return false;

@@ -2,6 +2,9 @@
 #include <iostream>
 #else
 #include <Arduino.h>
+
+uint8_t prev_input = 0xFF;
+
 #endif
 
 #include "common.h"
@@ -15,8 +18,6 @@ void setup() {
     initRand();
     f.prevFrame = millis();
 }
-
-uint8_t prev_input = 0xFF;
 
 void loop() {
     unsigned long t = millis();
