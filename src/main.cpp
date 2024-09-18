@@ -12,8 +12,11 @@ field f;
 
 void setup() {
     init_io();
+    initRand();
     f.prevFrame = millis();
 }
+
+uint8_t prev_input = 0xFF;
 
 void loop() {
     unsigned long t = millis();
@@ -29,7 +32,13 @@ void loop() {
 
     switch (econio_getch()) {
 #else
-    switch (arduinoGetInput()) {
+    delay(0.2);
+
+    uint8_t curr = arduinoGetInput();
+    if (prev_input == curr) { delay(0.2); return; }
+    prev_input = curr;
+
+    switch (curr) {
 #endif
 
         case CTRL_HARD_DROP: while (f.fall()) {} break;

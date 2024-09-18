@@ -13,7 +13,7 @@ void print(const field& f);
 #ifndef NONARDUINO 
 
 // Reimplementation of the econio getinput for multi-platform functionality
-int arduinoGetInput();
+uint8_t arduinoGetInput();
 
 #else
 

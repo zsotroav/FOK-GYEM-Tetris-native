@@ -4,6 +4,7 @@
 
 #include "io.h"
 #include "field.h"
+#include "config.h"
 
 #ifndef NONARDUINO
 
@@ -34,13 +35,7 @@ void init_io() {
     driver_setBuffer(buff, DRV_DATABUFF_SIZE);
     driver_forceWriteScreen();
 
-    pinMode(CTRL_HARD_DROP, INPUT);
-    pinMode(CTRL_SOFT_DROP, INPUT);
-    pinMode(CTRL_MOV_R, INPUT);
-    pinMode(CTRL_MOV_L, INPUT);
-    pinMode(CTRL_ROT_R, INPUT);
-    pinMode(CTRL_ROT_L, INPUT);
-    pinMode(CTRL_HOLD, INPUT);
+    for (auto pin : CTRLS) pinMode(pin, INPUT_PULLUP);
 
 #else
 
@@ -105,7 +100,7 @@ void print(const field& f) {
         for (size_t y = 0; y < SCREEN_ROW_CNT; y++) {
             if (baked[x][y] == 0) continue;
         
-            const int b = x * SCREEN_ROW_CNT - y - 1;
+            const int b = (x+1) * SCREEN_ROW_CNT - y - 1;
             buff[b/8] |= (0x80 >> b%8);
         }
     }
@@ -114,9 +109,13 @@ void print(const field& f) {
     driver_writeScreen();
 }
 
-int arduinoGetInput() {
-    // TODO: Ardunino input
-    return 999;
+uint8_t arduinoGetInput() {
+
+    for (auto a : CTRLS) {
+        if (digitalRead(a) == LOW) return a;
+    }
+
+    return 0xFF;
 }
 
 #endif

@@ -50,13 +50,17 @@
 
 #else //TODO: Actual layout
 
+#include "Arduino.h"
+
+static uint8_t CTRLS[] = {0, 1, A1, A2, A3, A4, A5};
+
 #define CTRL_HARD_DROP A4
 #define CTRL_SOFT_DROP A2
 #define CTRL_MOV_R A1
 #define CTRL_MOV_L A3
 #define CTRL_ROT_R A5
-#define CTRL_ROT_L 0
-#define CTRL_HOLD 1
+#define CTRL_ROT_L 1
+#define CTRL_HOLD 0
 
 #endif //NONARDUINO
 
