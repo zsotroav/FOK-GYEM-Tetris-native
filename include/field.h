@@ -5,6 +5,7 @@
 #ifndef FIELD_H
 #define FIELD_H
 
+#include "math.h"
 #include "config.h"
 #include "tetrimino.h"
 
@@ -30,7 +31,7 @@ public:
     Tetrimino hold = Tetrimino(NONE);
 
     int score = 0;
-    unsigned int getSpeed() const { return SPD_BASE - (score/LVL_CURVE) * SPD_CURVE; }
+    unsigned int getSpeed() const { return SPD_BASE - sqrt(score/LVL_CURVE) * SPD_CURVE; }
 
     unsigned long prevFrame = 0;
 
