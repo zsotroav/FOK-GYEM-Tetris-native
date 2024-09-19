@@ -48,6 +48,12 @@ enum tetriminoType {
     T = 6,
 };
 
+enum tetriminoState {
+    NEXT,
+    HOLD,
+    PLAY,
+};
+
 // type x rot x hori x vert
 const unsigned char tetriminos[7][4][5][5] =
 {
@@ -285,6 +291,14 @@ public:
         }
     }
 
+    void resetLoc(const tetriminoState s) {
+        switch(s) {
+            case NEXT: resetLoc(NEXT_X,  NEXT_Y);  break;
+            case HOLD: resetLoc(HOLD_X,  HOLD_Y);  break;
+            case PLAY: resetLoc(SPAWN_X, SPAWN_Y); break;
+        }
+    }
+
     explicit Tetrimino(const tetriminoType t, const tetriminoRotation r = ROTA,
                        const int x = SPAWN_X, const int y = SPAWN_Y
                        ) : typ(t), rot(r) {
@@ -297,7 +311,21 @@ public:
         resetLoc(x, y);
     }
 
+    explicit Tetrimino(const tetriminoType t, const tetriminoState s,
+                       const tetriminoRotation r = ROTA) : typ(t), rot(r) {
+        if (typ == NONE) {
+            this->x = 0;
+            this->y = 0;
+            return;
+        }
+
+        resetLoc(s);
+    }
+
     Tetrimino() : Tetrimino(static_cast<tetriminoType>(getRand())) {}
+
+    explicit Tetrimino(const tetriminoState s) :
+        Tetrimino(static_cast<tetriminoType>(getRand()), s) {}
 
     unsigned char get(const int x, const int y, const tetriminoRotation r) const {
         if (typ == NONE) return 0;

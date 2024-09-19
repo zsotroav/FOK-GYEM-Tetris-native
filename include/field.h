@@ -27,7 +27,7 @@ public:
     unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
 
     Tetrimino current; //!< Current (moving tetrimino)
-    Tetrimino next;
+    Tetrimino next = Tetrimino(NEXT);
     Tetrimino hold = Tetrimino(NONE);
 
     int score = 0;

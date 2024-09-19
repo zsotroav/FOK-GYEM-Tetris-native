@@ -25,6 +25,16 @@
 // Vertical tetrimino spawn point
 #define SPAWN_Y 6
 
+// Horizontal held position
+#define HOLD_X 6
+// Vertical held position
+#define HOLD_Y 2
+
+// Horizontal position of next tetrimino
+#define NEXT_X 2
+// Vertical position of next tetrimino
+#define NEXT_Y 2
+
 //////////////////////////////////////////////
 // Difficulty settings (tetrimino fall speeds)
 
