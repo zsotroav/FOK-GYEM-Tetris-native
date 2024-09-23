@@ -9,17 +9,18 @@ include_directories(include)
 include_directories(lib/econio)
 
 add_executable(FOK_GYEM_Tetris_native
-        include/common.h
-        include/io.h
-        include/field.h
+        src/main.cpp
+
         include/config.h
+        include/common.h
+        include/field.h
+        include/io.h
         include/tetrimino.h
 
-        src/tetrimino.cpp
-        src/main.cpp
-        src/common.cpp
-        src/io.pc.cpp
+        src/common.pc.cpp
         src/field.cpp
+        src/io.pc.cpp
+        src/tetrimino.cpp
 
         lib/econio/econio.h
         lib/econio/econio.c
