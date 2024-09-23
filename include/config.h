@@ -50,27 +50,33 @@
 
 #ifdef NONARDUINO
 
-#define CTRL_HARD_DROP 'w'
-#define CTRL_SOFT_DROP 's'
-#define CTRL_MOV_R 'd'
-#define CTRL_MOV_L 'a'
-#define CTRL_ROT_R KEY_LEFT
-#define CTRL_ROT_L KEY_RIGHT
-#define CTRL_HOLD KEY_UP
+#include "econio.h"
 
-#else //TODO: Actual layout
+typedef enum Control {
+    CTRL_HARD_DROP = 'w',
+    CTRL_SOFT_DROP = 's',
+    CTRL_MOV_R = 'd',
+    CTRL_MOV_L = 'a',
+    CTRL_ROT_R = KEY_LEFT,
+    CTRL_ROT_L = KEY_RIGHT,
+    CTRL_HOLD = KEY_UP,
+    CTRL_INV  = KEY_UNKNOWNKEY,
+} Control;
+
+#else
 
 #include "Arduino.h"
 
-static uint8_t CTRLS[] = {0, 1, A1, A2, A3, A4, A5};
-
-#define CTRL_HARD_DROP A4
-#define CTRL_SOFT_DROP A2
-#define CTRL_MOV_R A1
-#define CTRL_MOV_L A3
-#define CTRL_ROT_R A5
-#define CTRL_ROT_L 1
-#define CTRL_HOLD 0
+typedef enum Control {
+    CTRL_HARD_DROP = A4,
+    CTRL_SOFT_DROP = A2,
+    CTRL_MOV_R = A1,
+    CTRL_MOV_L = A3,
+    CTRL_ROT_R = A5,
+    CTRL_ROT_L = 1,
+    CTRL_HOLD  = 0,
+    CTRL_INV   = -1,
+} Control;
 
 #endif //NONARDUINO
 

@@ -1,17 +1,9 @@
-#ifdef NONARDUINO
-#include <iostream>
-#else
-#include <Arduino.h>
-
-uint8_t prev_input = 0xFF;
-
-#endif
-
 #include "common.h"
 #include "io.h"
 #include "econio.h"
 
 field f;
+inputHandle ih;
 
 void setup() {
     init_io();
@@ -27,21 +19,9 @@ void loop() {
     }
     print(f);
 
-#ifdef NONARDUINO
-    // TODO: Squash these?
-    if (!econio_kbhit()) { delay(0.2); return; }
+    if (!ih.inputAvailable()) { delay(0.2); return; }
 
-    switch (econio_getch()) {
-#else
-    delay(0.2);
-
-    uint8_t curr = arduinoGetInput();
-    if (prev_input == curr) { delay(0.2); return; }
-    prev_input = curr;
-
-    switch (curr) {
-#endif
-
+    switch (ih.getInput()) {
         case CTRL_HARD_DROP: while (f.fall()) {} break;
         case CTRL_SOFT_DROP: f.fall(); delay(0.1); break;
         case CTRL_MOV_L: f.mov(false); break;

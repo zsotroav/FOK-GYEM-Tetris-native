@@ -10,18 +10,12 @@ void init_io();
 
 void print(const field& f);
 
-#ifndef NONARDUINO 
+class inputHandle {
+    Control prev_input = CTRL_INV;
 
-// Reimplementation of the econio getinput for multi-platform functionality
-uint8_t arduinoGetInput();
-
-#else
-
-#include "econio.h"
-
-// Reimplementation of the Arduino delay function using econio
-inline void delay(double sec) { econio_sleep(sec); }
-
-#endif
+public:
+    bool inputAvailable();
+    Control getInput();
+};
 
 #endif //DISPLAY_H

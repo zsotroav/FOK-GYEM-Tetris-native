@@ -12,6 +12,9 @@
 #include "io.h"
 
 
+static Control ctrls[] = {CTRL_HARD_DROP, CTRL_SOFT_DROP, CTRL_MOV_R, 
+                       CTRL_MOV_L, CTRL_ROT_R, CTRL_ROT_L, CTRL_HOLD};
+
 void init_io() {
 
     // Initialize driver
@@ -26,7 +29,8 @@ void init_io() {
     driver_setBuffer(buff, DRV_DATABUFF_SIZE);
     driver_forceWriteScreen();
 
-    for (auto pin : CTRLS) pinMode(pin, INPUT_PULLUP);
+
+    for (auto pin : ctrls) pinMode(pin, INPUT_PULLUP);
 }
 
 uint8_t buff[DRV_DATABUFF_SIZE] = {0};
@@ -77,13 +81,20 @@ void print(const field& f) {
     driver_writeScreen();
 }
 
-uint8_t arduinoGetInput() {
-
-    for (auto a : CTRLS) {
+Control inputHandle::getInput() {
+    for (auto a : ctrls) {
         if (digitalRead(a) == LOW) return a;
     }
 
-    return 0xFF;
+    return CTRL_INV;
+}
+
+bool inputHandle::inputAvailable() {
+    Control curr = getInput();
+
+    bool re = prev_input != curr;
+    prev_input = curr;
+    return re;
 }
 
 #endif
