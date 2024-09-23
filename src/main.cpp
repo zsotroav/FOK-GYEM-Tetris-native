@@ -7,7 +7,7 @@ void gameUpdateLoop(field& f, inputHandle& ih) {
     f.tick();
     print(f);
 
-    ih.waitUntilAvailable();
+    if (!ih.inputAvailable()) { sleep(0.2); return; }
 
     switch (ih.getInput()) {
         case CTRL_HARD_DROP: while (f.fall()) {} break;
@@ -38,7 +38,7 @@ int main() {
     // The game runs indefinitely
     while(true) {
         //printMainScreen();
-        ih.waitUntilAvailable();
+        while (!ih.inputAvailable()) { sleep(0.2); }
 
         // Consuming input is required for some systems
         ih.getInput(); 

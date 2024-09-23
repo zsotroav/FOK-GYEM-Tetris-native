@@ -60,3 +60,4 @@ cmake-build-*/
 
 .pio/
 platformio.ini
+build/

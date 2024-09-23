@@ -18,10 +18,6 @@ class inputHandle {
 public:
     bool inputAvailable();
     Control getInput();
-
-    void waitUntilAvailable() { 
-        if (!inputHandle::inputAvailable()) { sleep(0.2); return; }
-    }
 };
 
 #endif //DISPLAY_H
