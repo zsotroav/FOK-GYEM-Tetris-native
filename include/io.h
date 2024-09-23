@@ -10,12 +10,18 @@ void init_io();
 
 void print(const field& f);
 
+void printMainScreen();
+
 class inputHandle {
-    Control prev_input = CTRL_INV;
+    Control prev_input;
 
 public:
     bool inputAvailable();
     Control getInput();
+
+    void waitUntilAvailable() { 
+        if (!inputHandle::inputAvailable()) { sleep(0.2); return; }
+    }
 };
 
 #endif //DISPLAY_H

@@ -1,24 +1,13 @@
 #include "common.h"
 #include "io.h"
 
-field f;
-inputHandle ih;
 
-void setup() {
-    init_io();
-    initRand();
-    f.prevFrame = time();
-}
-
-void loop() {
-    unsigned long t = time();
-    if (f.prevFrame + f.getSpeed() < t) {
-        f.fall();
-        f.prevFrame = t;
-    }
+// Gameplay update loop for handling ticks/updates
+void gameUpdateLoop(field& f, inputHandle& ih) {
+    f.tick();
     print(f);
 
-    if (!ih.inputAvailable()) { sleep(0.2); return; }
+    ih.waitUntilAvailable();
 
     switch (ih.getInput()) {
         case CTRL_HARD_DROP: while (f.fall()) {} break;
@@ -32,10 +21,29 @@ void loop() {
     }
 }
 
-// if not running on arduino
-#ifdef NONARDUINO
-int main() {
-    setup();
-    while(true) loop();
+// Gameplay loop creating the field and using it until the game ends
+void masterLoop(inputHandle& ih) {
+    // Create a new field to play on
+    field f;
+    
+    while(f.isValid()) gameUpdateLoop(f, ih);
 }
-#endif
+
+int main() {
+    init_io();
+    initRand();
+
+    inputHandle ih;
+
+    // The game runs indefinitely
+    while(true) {
+        //printMainScreen();
+        ih.waitUntilAvailable();
+
+        // Consuming input is required for some systems
+        ih.getInput(); 
+        
+        // Enter the master gameplay loop
+        masterLoop(ih);
+    }
+}

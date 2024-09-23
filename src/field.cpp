@@ -76,3 +76,11 @@ void field::swap() {
     hold.resetLoc(HOLD);
     current.resetLoc(PLAY);
 }
+
+void field::tick() {
+    unsigned long t = time();
+    if (prevFrame + getSpeed() < t) {
+        fall();
+        prevFrame = t;
+    }
+}

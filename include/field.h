@@ -18,10 +18,14 @@ class field {
      */
     bool merge();
 
-    bool tetris = false;
+    bool tetris = false; //!< Previous move was a tetris
 
-    bool canSwap = true;
-    bool valid = true;
+    bool canSwap = true; //!< Previous move wasn't a swap
+    bool valid = true;   //!< Game is in a valid and playable state
+
+    unsigned long prevFrame = time();
+    
+    int score = 0;
 
 public:
     unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
@@ -30,16 +34,13 @@ public:
     Tetrimino next = Tetrimino(NEXT);
     Tetrimino hold = Tetrimino(NONE);
 
-    int score = 0;
     unsigned int getSpeed() const { return SPD_BASE - sqrt(score/LVL_CURVE) * SPD_CURVE; }
-
-    unsigned long prevFrame = 0;
-
-    bool isValid() { return valid; }
+    int getScore() const { return score; }
+    bool isValid() const { return valid; }
 
     bool fall();
-    bool mov(bool right) { return current.mov(right, *this); }
-    bool rot(bool right) { return current.rotate(right, *this); }
+    bool mov(const bool right) { return current.mov(right, *this); }
+    bool rot(const bool right) { return current.rotate(right, *this); }
 
     void swap();
 
@@ -49,15 +50,21 @@ public:
      */
     bool finishMove();
 
+    /**
+     * Tick (increment the field timer) and fall automatically when needed
+     */
+    void tick();
+
     field() {
+        // Fill in map borders
         for (int i = 0; i < SCREEN_COL_CNT+2; i++) {
-            map[0][i] = 1;
-            map[SCREEN_PLAY_ROW][i] = 1;
-            map[SCREEN_ROW_CNT+1][i] = 1;
+            map[0][i] = 1; // Fill top border
+            map[SCREEN_PLAY_ROW][i] = 1;  // Fill separator row
+            map[SCREEN_ROW_CNT+1][i] = 1; // Fill bottom border
         }
         for (int i = 0; i < SCREEN_ROW_CNT+2; i++) {
-            map[i][0] = 1;
-            map[i][SCREEN_COL_CNT+1] = 1;
+            map[i][0] = 1; // Fill left border
+            map[i][SCREEN_COL_CNT+1] = 1; // Fill right border
         }
         
     }

@@ -14,6 +14,7 @@ static Control ctrls[] = {CTRL_HARD_DROP, CTRL_SOFT_DROP, CTRL_MOV_R,
                        CTRL_MOV_L, CTRL_ROT_R, CTRL_ROT_L, CTRL_HOLD};
 
 void init_io() {
+    init(); // Init the rest of the Arduino system as well
 
     // Initialize driver
     driver_init();
