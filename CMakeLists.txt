@@ -18,7 +18,7 @@ add_executable(FOK_GYEM_Tetris_native
         src/tetrimino.cpp
         src/main.cpp
         src/common.cpp
-        src/io.cpp
+        src/io.pc.cpp
         src/field.cpp
 
         lib/econio/econio.h

@@ -1,27 +1,18 @@
-//
-// Created by zsotroav on 2024-08-20.
-//
-
-#include "io.h"
-#include "field.h"
-#include "config.h"
+/*
+ * FOK-GYEM Tetris Native - Arduino platform specific IO handling module
+ * Copyright (C) 2024 zsotroav
+ */
 
 #ifndef NONARDUINO
 
 #include <arduino.h>
+#include "config.h"
 #include "driver.h"
-
-#else
-
-#include <iostream>
-#include "econio.h"
-
-#endif
+#include "field.h"
+#include "io.h"
 
 
 void init_io() {
-
-#ifndef NONARDUINO
 
     // Initialize driver
     driver_init();
@@ -36,52 +27,7 @@ void init_io() {
     driver_forceWriteScreen();
 
     for (auto pin : CTRLS) pinMode(pin, INPUT_PULLUP);
-
-#else
-
-    econio_clrscr();
-    econio_rawmode();
-
-#endif
-
 }
-
-
-#ifdef NONARDUINO
-void print(const field& f) {
-    econio_clrscr();
-
-    // Field base data
-    for (int i = 0; i < SCREEN_ROW_CNT+2; ++i) {
-        for (int j = 0; j < SCREEN_COL_CNT+2; ++j) {
-            std::cout << ((f.map[i][j] > 0) ? "X" : " ");
-        }
-        std::cout << std::endl;
-    }
-
-    // Current tetrimino
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 5; ++j) {
-            if (f.current.get(j, i) != 0) {
-                econio_gotoxy(f.current.getX()+j, f.current.getY()+i);
-                std::cout << "Z";
-            }
-            
-            if (f.next.get(j, i) != 0) {
-                econio_gotoxy(f.next.getX()+j, f.next.getY()+i);
-                std::cout << "Z";
-            }
-            
-            if (f.hold.get(j, i) != 0) {
-                econio_gotoxy(f.hold.getX()+j, f.hold.getY()+i);
-                std::cout << "Z";
-            }
-        }
-    }
-    
-}
-
-#else
 
 uint8_t buff[DRV_DATABUFF_SIZE] = {0};
 
