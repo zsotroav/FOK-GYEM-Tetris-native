@@ -30,10 +30,21 @@ cd ../..
 
 ## Compiling
 This game can be compiled for both Arduino and PC systems (for debugging and 
-testing purposes). Platform specific instructions:
+testing purposes). Platform specific instructions (O = yes, X = no):
 
-| Action                           | PC | Arduino |
-|-----------------------------------|---|---|
-| Define `NONARDUINO` macro         | O | X |
-| Include `lib/econio` in build     | O | X |
-| Include `lib/fgy-driver` in build | X | O |
+| Action                              | PC | Arduino |
+|-------------------------------------|---|---|
+| Define `NONARDUINO` macro           | O | X |
+| Compile source files pc suffix      | O | X |
+| Compile source files arduino suffix | X | O |
+| Include `lib/econio` in build       | O | X |
+| Include `lib/fgy-driver` in build   | X | O |
+
+*Note: The `NONARDUINO` macro is planned to be removed to make the code 
+completely modular and work based only on which files are compiled and linked.*
+
+### Pre-made compiler settings
+- For PC, use the proviced [CMakeLists](./CMakeLists.txt) file.
+- For Arduino, usage of [PlatformIO](https://platformio.org/) with
+[Visual Stuio Code](https://code.visualstudio.com) is recommended with the
+[example pio ini](./platformio.ini.example) file.

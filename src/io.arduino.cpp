@@ -3,8 +3,6 @@
  * Copyright (C) 2024 zsotroav
  */
 
-#ifndef NONARDUINO
-
 #include <arduino.h>
 #include "config.h"
 #include "driver.h"
@@ -96,5 +94,3 @@ bool inputHandle::inputAvailable() {
     prev_input = curr;
     return re;
 }
-
-#endif

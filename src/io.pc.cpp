@@ -3,8 +3,6 @@
  * Copyright (C) 2024 zsotroav
  */
 
-#ifdef NONARDUINO
-
 #include <iostream>
 #include "config.h"
 #include "econio.h"
@@ -62,5 +60,3 @@ Control inputHandle::getInput() {
 
     return CTRL_INV;
 }
-
-#endif

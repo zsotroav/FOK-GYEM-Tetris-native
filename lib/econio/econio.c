@@ -1,6 +1,5 @@
 #include "econio.h"
 
-#ifdef NONARDUINO
 #if defined(_WIN32) || defined(_WIN64)
 
 
@@ -333,4 +332,3 @@ void econio_sleep(double sec) {
 
 
 #endif // defined _WIN32
-#endif // NONARDUINO

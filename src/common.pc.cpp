@@ -4,7 +4,6 @@
  * Copyright (C) 2024 zsotroav
  */
 
-#ifdef NONARDUINO
 #include <cstdlib>
 #include <experimental/random>
 #include <ctime>
@@ -30,6 +29,4 @@ unsigned long time() {
 }
 
 void sleep(const double sec) { econio_sleep(sec); }
-
-#endif
 
