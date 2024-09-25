@@ -44,6 +44,8 @@
 #define SPD_CURVE 220
 // Speed increases every x levels
 #define LVL_CURVE 10
+// Final speed level
+#define ULTIMATE_SPD 30
 
 /////////////////////////
 // Input Control settings

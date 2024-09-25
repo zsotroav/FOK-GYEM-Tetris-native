@@ -5,6 +5,11 @@
 #include "field.h"
 #include "common.h"
 
+unsigned int field::getSpeed() const { 
+    if (score >= 128) return ULTIMATE_SPD;
+    return SPD_BASE - sqrt(score/LVL_CURVE) * SPD_CURVE; 
+}
+
 bool field::merge() {
     int x = current.getX(), y = current.getY();
 
