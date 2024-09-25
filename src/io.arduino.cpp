@@ -90,6 +90,23 @@ void printMainScreen() {
     driver_forceWriteScreen();
 }
 
+void printGameOver(const unsigned int score) {
+    if (DRV_DATABUFF_SIZE != 21) return;
+
+    uint8_t b[] = { 0x00, 0x00, 0x00, 0x01, 0xFF, 0x00, 0x01, 0xFF, 0x00, 0x01, 
+        0x80, 0x00, 0x01, 0x80, 0x00, 0x01, 0x80, 0x00, 0x00, 0x00, 0x00 };
+
+    uint32_t off = 0x01;
+    for (int i = 0; i < SCREEN_COL_CNT; i++) {
+        if ((score & off) != 0) 
+            b[(SCREEN_ROW_CNT * (i+1) - 1)/8] |= 0x01; 
+        off <<= 1;
+    }
+    
+    driver_setBuffer(b, 21);
+    driver_forceWriteScreen();
+}
+
 Control inputHandle::getInput() {
     for (auto a : ctrls) {
         if (digitalRead(a) == LOW) return a;

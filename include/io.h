@@ -12,6 +12,8 @@ void print(const field& f);
 
 void printMainScreen();
 
+void printGameOver(const unsigned int score);
+
 class inputHandle {
     Control prev_input;
 

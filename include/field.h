@@ -25,7 +25,7 @@ class field {
 
     unsigned long prevFrame = time();
     
-    int score = 0;
+    unsigned int score = 0;
 
 public:
     unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
@@ -35,7 +35,7 @@ public:
     Tetrimino hold = Tetrimino(NONE);
 
     unsigned int getSpeed() const { return SPD_BASE - sqrt(score/LVL_CURVE) * SPD_CURVE; }
-    int getScore() const { return score; }
+    unsigned int getScore() const { return score; }
     bool isValid() const { return valid; }
 
     bool fall();

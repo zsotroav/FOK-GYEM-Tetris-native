@@ -59,6 +59,18 @@ void printMainScreen() {
               << "   to start.   " << std::endl;
 }
 
+void printGameOver(const unsigned int score) {
+    econio_clrscr();
+    econio_gotoxy(0, 0);
+    std::cout << "FOK-GYEM Tetris" << std::endl
+              << " PC Compatible " << std::endl
+              << "    version    " << std::endl
+              << std::endl
+              << "   GAME OVER   " << std::endl
+              << std::endl
+              << "   SCORE: " << score << std::endl;
+}
+
 bool inputHandle::inputAvailable() { return econio_kbhit(); }
 
 Control inputHandle::getInput() { 

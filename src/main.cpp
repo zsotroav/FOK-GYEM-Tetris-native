@@ -7,7 +7,7 @@ void gameUpdateLoop(field& f, inputHandle& ih) {
     f.tick();
     print(f);
 
-    if (!ih.inputAvailable()) { sleep(0.2); return; }
+    if (!ih.inputAvailable()) { return; }
 
     switch (ih.getInput()) {
         case CTRL_HARD_DROP: while (f.fall()) {} break;
@@ -27,6 +27,8 @@ void masterLoop(inputHandle& ih) {
     field f;
     
     while(f.isValid()) gameUpdateLoop(f, ih);
+    printGameOver(f.getScore());
+    sleep(8);
 }
 
 int main() {
