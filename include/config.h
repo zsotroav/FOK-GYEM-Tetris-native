@@ -57,8 +57,8 @@ typedef enum Control {
     CTRL_SOFT_DROP = 's',
     CTRL_MOV_R = 'd',
     CTRL_MOV_L = 'a',
-    CTRL_ROT_R = KEY_LEFT,
-    CTRL_ROT_L = KEY_RIGHT,
+    CTRL_ROT_R = KEY_RIGHT,
+    CTRL_ROT_L = KEY_LEFT,
     CTRL_HOLD = KEY_UP,
     CTRL_INV  = KEY_UNKNOWNKEY,
 } Control;

@@ -49,7 +49,7 @@ bool field::finishMove() {
     score += scoreArr[cleared];
 
     for (int i = 1; i <= SCREEN_COL_CNT; ++i) {
-        if (map[SPAWN_X+2][i] == 0) continue;
+        if (map[SPAWN_X+3][i] == 0) continue;
         valid = false;
         return false;
     }
@@ -67,7 +67,11 @@ bool field::fall() {
 void field::swap() {
     if (!canSwap) return;
     canSwap = false;
-    if (hold.getType() == NONE) hold = Tetrimino();
+    if (hold.getType() == NONE) {
+        hold = next;
+        next = Tetrimino();
+        next.resetLoc(NEXT);
+    }
 
     const auto tmp = hold;
     hold = current;
