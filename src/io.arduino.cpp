@@ -64,11 +64,9 @@ void printMainScreen() {
 }
 
 void scoreOverlay(uint8_t arr[21], const unsigned int score) {
-    
     uint32_t off = 0x01;
     for (int i = SCREEN_COL_CNT; i > 0; i--) {
-        if ((score & off) == 0) continue;
-        arr[(SCREEN_ROW_CNT * (i+1) - 1)/8] |= 0x01; 
+        if ((score & off) != 0) arr[(SCREEN_ROW_CNT * (i) - 1)/8] |= 0x01; 
         off <<= 1;
     }
 }
