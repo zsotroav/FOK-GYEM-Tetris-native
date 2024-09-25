@@ -18,12 +18,11 @@ bool field::merge() {
     return true;    
 }
 
-
 bool field::finishMove() {
     if (!merge()) return false;
 
     current = next;
-    current.resetLoc(PLAY);
+    current.resetLoc();
     next = Tetrimino(static_cast<tetriminoType>(getRand()), NEXT);
 
     int cleared = 0;
@@ -69,16 +68,14 @@ void field::swap() {
     canSwap = false;
     if (hold.getType() == NONE) {
         hold = next;
-        next = Tetrimino();
-        next.resetLoc(NEXT);
+        next = Tetrimino(NEXT);
     }
 
     const auto tmp = hold;
     hold = current;
     current = tmp;
     
-    hold.resetLoc(HOLD);
-    current.resetLoc(PLAY);
+    current.resetLoc();
 }
 
 void field::tick() {

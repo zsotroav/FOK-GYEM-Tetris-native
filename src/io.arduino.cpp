@@ -34,33 +34,6 @@ void init_io() {
 
 uint8_t buff[DRV_DATABUFF_SIZE] = {0};
 
-void bake(uint8_t baked[SCREEN_COL_CNT][SCREEN_ROW_CNT], const field& f) {
-    // Field base data
-    for (int x = 1; x <= SCREEN_COL_CNT; x++) {
-        for (int y = 1; y <= SCREEN_ROW_CNT; y++) {
-            if (f.map[y][x] == 0) continue;
-            baked[x-1][y-1] = 1;
-        }
-    }
-    
-    // Tetrimino layers
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 5; ++j) {
-            // Current tetrimino
-            if (f.current.get(j, i) != 0) 
-                baked[j + f.current.getX()-1][i + f.current.getY()-1] = 1;
-
-            // Next tetrimino
-            if (f.next.get(j, i) != 0) 
-                baked[j + f.next.getX()-1][i + f.next.getY()-1] = 1;
-
-            // Held tetrimino
-            if (f.hold.get(j, i) != 0) 
-                baked[j + f.hold.getX()-1][i + f.hold.getY()-1] = 1;
-        }
-    }
-}
-
 void print(const field& f) {
     memset(buff, 0, DRV_DATABUFF_SIZE);
 
@@ -104,7 +77,7 @@ void printGameOver(const unsigned int score) {
     }
     
     driver_setBuffer(b, 21);
-    driver_forceWriteScreen();
+    driver_writeScreen();
 }
 
 Control inputHandle::getInput() {

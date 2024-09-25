@@ -147,7 +147,7 @@ const unsigned char tetriminos[7][4][5][5] =
             {0, 0, 0, 0, 0}
         }
     },
-    { // L mirrored
+    { // J
         {
             {0, 0, 0, 0, 0},
             {0, 0, 1, 0, 0},
@@ -177,14 +177,7 @@ const unsigned char tetriminos[7][4][5][5] =
             {0, 0, 0, 0, 0}
         }
     },
-    { // N
-        {
-            {0, 0, 0, 0, 0},
-            {0, 0, 0, 1, 0},
-            {0, 0, 2, 1, 0},
-            {0, 0, 1, 0, 0},
-            {0, 0, 0, 0, 0}
-        },
+    { // Z
         {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0},
@@ -204,17 +197,17 @@ const unsigned char tetriminos[7][4][5][5] =
             {0, 1, 1, 0, 0},
             {0, 0, 2, 1, 0},
             {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        },
+        {
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 1, 0},
+            {0, 0, 2, 1, 0},
+            {0, 0, 1, 0, 0},
             {0, 0, 0, 0, 0}
         }
     },
-    { // N mirrored
-        {
-            {0, 0, 0, 0, 0},
-            {0, 0, 1, 0, 0},
-            {0, 0, 2, 1, 0},
-            {0, 0, 0, 1, 0},
-            {0, 0, 0, 0, 0}
-        },
+    { // S
         {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0},
@@ -234,6 +227,13 @@ const unsigned char tetriminos[7][4][5][5] =
             {0, 0, 1, 1, 0},
             {0, 1, 2, 0, 0},
             {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0}
+        },
+        {
+            {0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 0},
+            {0, 0, 2, 1, 0},
+            {0, 0, 0, 1, 0},
             {0, 0, 0, 0, 0}
         }
     },
@@ -269,6 +269,94 @@ const unsigned char tetriminos[7][4][5][5] =
     }
 };
 
+const unsigned char tetriminoStored[7][2][3][4] = {
+    { // Square
+        {
+            { 1, 1, 0, 0 },
+            { 1, 1, 0, 0 },
+            { 0, 0, 0, 0 },
+        },
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 1, 1 },
+            { 0, 0, 1, 1 },
+        }
+    },
+    { // I
+        {
+            { 1, 1, 1, 1 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+        },
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 1, 1, 1, 1 },
+        }
+    },
+    { // L
+        {
+            { 1, 0, 0, 0 },
+            { 1, 0, 0, 0 },
+            { 1, 1, 0, 0 },
+        },
+        {
+            { 0, 0, 1, 0 },
+            { 0, 0, 1, 0 },
+            { 0, 0, 1, 1 },
+        }
+    },
+    { // J
+        {
+            { 0, 1, 0, 0 },
+            { 0, 1, 0, 0 },
+            { 1, 1, 0, 0 },
+        },
+        {
+            { 0, 0, 0, 1 },
+            { 0, 0, 0, 1 },
+            { 0, 0, 1, 1 },
+        }
+    },
+    { // Z
+        {
+            { 1, 1, 0, 0 },
+            { 0, 1, 1, 0 },
+            { 0, 0, 0, 0 },
+        },
+        {
+            { 0, 0, 0, 0 },
+            { 0, 1, 1, 0 },
+            { 0, 0, 1, 1 },
+        }
+    },
+    { // S
+        {
+            { 0, 1, 1, 0 },
+            { 1, 1, 0, 0 },
+            { 0, 0, 0, 0 },
+        },
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 1, 1 },
+            { 0, 1, 1, 0 },
+        }
+
+    },
+    { // T
+        {
+            { 1, 1, 1, 0 },
+            { 0, 1, 0, 0 },
+            { 0, 0, 0, 0 },
+        },
+        {
+            { 0, 0, 0, 0 },
+            { 0, 1, 1, 1 },
+            { 0, 0, 1, 0 },
+        }
+    }
+};
+
 class Tetrimino {
     int x, y;
     tetriminoType typ;
@@ -281,6 +369,7 @@ public:
     tetriminoType getType() const { return typ; }
 
     void resetLoc(const int x = SPAWN_X, const int y = SPAWN_Y) {
+        rot = ROTA;
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
                 if (get(j, i) != 2) continue;
@@ -288,14 +377,6 @@ public:
                 this->y = y - i;
                 return;
             }
-        }
-    }
-
-    void resetLoc(const tetriminoState s) {
-        switch(s) {
-            case NEXT: resetLoc(NEXT_X,  NEXT_Y);  break;
-            case HOLD: resetLoc(HOLD_X,  HOLD_Y);  break;
-            case PLAY: resetLoc(SPAWN_X, SPAWN_Y); break;
         }
     }
 
@@ -319,7 +400,7 @@ public:
             return;
         }
 
-        resetLoc(s);
+        resetLoc();
     }
 
     Tetrimino() : Tetrimino(static_cast<tetriminoType>(getRand())) {}
@@ -330,6 +411,11 @@ public:
     unsigned char get(const int x, const int y, const tetriminoRotation r) const {
         if (typ == NONE) return 0;
         return tetriminos[typ][r][y][x];
+    }
+
+    unsigned char getStored(const int x, const int y, const bool next) const {
+        if (typ == NONE) return 0;
+        return tetriminoStored[typ][next ? 0 : 1][y][x];
     }
 
     unsigned char get(const int x, const int y) const { return get(x, y, rot); }

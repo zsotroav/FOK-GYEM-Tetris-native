@@ -18,34 +18,16 @@ void init_io() {
 void print(const field& f) {
     econio_clrscr();
 
-    // Field base data
-    for (int i = 0; i < SCREEN_ROW_CNT+2; ++i) {
-        for (int j = 0; j < SCREEN_COL_CNT+2; ++j) {
-            std::cout << ((f.map[i][j] > 0) ? "X" : " ");
-        }
-        std::cout << std::endl;
-    }
+    unsigned char baked[SCREEN_COL_CNT][SCREEN_ROW_CNT] = {0};
+    bake(baked, f);
 
-    // Current tetrimino
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 5; ++j) {
-            if (f.current.get(j, i) != 0) {
-                econio_gotoxy(f.current.getX()+j, f.current.getY()+i);
-                std::cout << "Z";
-            }
-            
-            if (f.next.get(j, i) != 0) {
-                econio_gotoxy(f.next.getX()+j, f.next.getY()+i);
-                std::cout << "Z";
-            }
-            
-            if (f.hold.get(j, i) != 0) {
-                econio_gotoxy(f.hold.getX()+j, f.hold.getY()+i);
-                std::cout << "Z";
-            }
+    for (int x = 0; x < SCREEN_ROW_CNT; x++) {
+        std::cout << "|";
+        for (int y = 0; y < SCREEN_COL_CNT; y++) {
+            std::cout << (baked[y][x] == 0 ? " " : "X");
         }
+        std::cout << "|" << std::endl;
     }
-    
 }
 
 void printMainScreen() {
@@ -71,7 +53,12 @@ void printGameOver(const unsigned int score) {
               << "   SCORE: " << score << std::endl;
 }
 
-bool inputHandle::inputAvailable() { return econio_kbhit(); }
+bool inputHandle::inputAvailable() {
+    if (econio_kbhit()) return true;
+
+    sleep(0.2);
+    return false;
+}
 
 Control inputHandle::getInput() { 
     int key = econio_getch();

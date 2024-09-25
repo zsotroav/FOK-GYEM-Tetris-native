@@ -8,18 +8,20 @@
 
 void init_io();
 
+void bake(unsigned char baked[SCREEN_COL_CNT][SCREEN_ROW_CNT], const field& f);
+
 void print(const field& f);
 
 void printMainScreen();
 
-void printGameOver(const unsigned int score);
+void printGameOver(unsigned int score);
 
 class inputHandle {
-    Control prev_input;
+    Control prev_input = CTRL_INV;
 
 public:
-    bool inputAvailable();
-    Control getInput();
+    static bool inputAvailable();
+    static Control getInput();
 };
 
 #endif //DISPLAY_H

@@ -19,6 +19,7 @@ add_executable(FOK_GYEM_Tetris_native
 
         src/common.pc.cpp
         src/field.cpp
+        src/io.cpp
         src/io.pc.cpp
         src/tetrimino.cpp
 
