@@ -37,7 +37,7 @@ int main() {
 
     // The game runs indefinitely
     while(true) {
-        //printMainScreen();
+        printMainScreen();
         while (!ih.inputAvailable()) { sleep(0.2); }
 
         // Consuming input is required for some systems

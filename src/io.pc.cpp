@@ -48,6 +48,17 @@ void print(const field& f) {
     
 }
 
+void printMainScreen() {
+    econio_clrscr();
+    econio_gotoxy(0, 0);
+    std::cout << "FOK-GYEM Tetris" << std::endl
+              << " PC Compatible " << std::endl
+              << "    version    " << std::endl
+	          << std::endl
+              << " Press any key " << std::endl
+              << "   to start.   " << std::endl;
+}
+
 bool inputHandle::inputAvailable() { return econio_kbhit(); }
 
 Control inputHandle::getInput() { 

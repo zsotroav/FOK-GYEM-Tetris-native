@@ -80,6 +80,16 @@ void print(const field& f) {
     driver_writeScreen();
 }
 
+// TODO: Proper dynamic size for this as well?
+void printMainScreen() {
+    if (DRV_DATABUFF_SIZE != 21) return;
+
+    uint8_t b[] = { 0xFC, 0x00, 0x09, 0xF0, 0x00, 0x0B, 0xE0, 0x10, 0x0A, 0x36,
+        0x30, 0x08, 0xEE, 0x10, 0x08, 0xC8, 0x00, 0x08, 0x78, 0x00, 0x08 };
+    driver_setBuffer(b, 21);
+    driver_forceWriteScreen();
+}
+
 Control inputHandle::getInput() {
     for (auto a : ctrls) {
         if (digitalRead(a) == LOW) return a;
