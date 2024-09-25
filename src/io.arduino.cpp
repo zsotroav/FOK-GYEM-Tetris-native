@@ -63,20 +63,33 @@ void printMainScreen() {
     driver_forceWriteScreen();
 }
 
-void printGameOver(const unsigned int score) {
-    if (DRV_DATABUFF_SIZE != 21) return;
-
-    uint8_t b[] = { 0x00, 0x00, 0x00, 0x01, 0xFF, 0x00, 0x01, 0xFF, 0x00, 0x01, 
-        0x80, 0x00, 0x01, 0x80, 0x00, 0x01, 0x80, 0x00, 0x00, 0x00, 0x00 };
-
+void scoreOverlay(uint8_t arr[21], const unsigned int score) {
+    
     uint32_t off = 0x01;
-    for (int i = 0; i < SCREEN_COL_CNT; i++) {
-        if ((score & off) != 0) 
-            b[(SCREEN_ROW_CNT * (i+1) - 1)/8] |= 0x01; 
+    for (int i = SCREEN_COL_CNT; i > 0; i--) {
+        if ((score & off) == 0) continue;
+        arr[(SCREEN_ROW_CNT * (i+1) - 1)/8] |= 0x01; 
         off <<= 1;
     }
+}
+
+void printGameOver(const unsigned int score) {
+    if (DRV_DATABUFF_SIZE != 21) return;
     
-    driver_setBuffer(b, 21);
+    uint8_t w[] = { 0x30, 0x00, 0x00, 0x2C, 0x03, 0x80, 0x20, 0x00, 0x40, 0x06,
+        0x43, 0x80, 0x09, 0x40, 0x40, 0x09, 0x43, 0x80, 0x04, 0xC0, 0x00 };
+
+    uint8_t l[] = { 0x00, 0x00, 0x00, 0x01, 0xFF, 0x00, 0x01, 0xFF, 0x00, 0x01, 
+        0x80, 0x00, 0x01, 0x80, 0x00, 0x01, 0x80, 0x00, 0x00, 0x00, 0x00 };
+
+    if (score > 127) {
+        scoreOverlay(w, score);
+        driver_setBuffer(w, DRV_DATABUFF_SIZE);
+    } else {
+        scoreOverlay(l, score);
+        driver_setBuffer(l, DRV_DATABUFF_SIZE);
+    }
+    
     driver_writeScreen();
 }
 

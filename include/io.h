@@ -17,11 +17,13 @@ void printMainScreen();
 void printGameOver(unsigned int score);
 
 class inputHandle {
-    Control prev_input = CTRL_INV;
+    Control prev_input;
 
 public:
-    static bool inputAvailable();
-    static Control getInput();
+    bool inputAvailable();
+    Control getInput();
+
+    inputHandle() : prev_input(CTRL_INV) {}
 };
 
 #endif //DISPLAY_H
