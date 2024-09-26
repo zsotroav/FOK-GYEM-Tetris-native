@@ -1,22 +1,35 @@
 # FOK-GYEM Tetris - Arduino native
+Multiplatform tetris clone for SZIG-FOK-GYEM controlles and other devices.
+
+This project contains a considerable amount of platform specific code, part of
+which are handled automatically via preprocessor statements, but most are split
+into different files marked with suffixes. For more info see the
+[compiling][#Compiling] section.
 
 ## Requirements
 - SzIG-FOK-GYEM driver controller board 
 - controller keypad with 7 buttons
 
-## Cloning
-The driver for the controller is included as a submodule, but sparse-checkout
-is recommended for the cloning of the submodule with the following settings:
-```
-/*
-!src/main.cpp
-```
+OR
 
-This is only required to avoid conflicting `main` and `loop` functions.
-A regular recursive clone works perfectly as well, but a manual delete or
-additional compiler settings may be required.
+- Windows/Linux computer with a keyboard and terminal
+
+## Cloning
+The driver for the controller is included as a submodule, as such recursive
+cloning is required for compiling for Arduino.
 
 ### Cloning commands
+#### Without sparse checkout
+```sh
+git clone --recurse-submodules https://github.com/zsotroav/FOK-GYEM-Tetris-native
+cd FOk-GYEM-Tetris-native
+```
+
+#### With sparse checkout
+This is was previously required to avoid conflicting `setup` and `loop`
+functions, but is no longer neccesary because of a new layout in 
+[main.cpp](./src/main.cpp).
+
 ```sh
 git clone https://github.com/zsotroav/FOK-GYEM-Tetris-native
 cd FOK-GYEM-Tetris-native
@@ -29,16 +42,16 @@ cd ../..
 ```
 
 ## Compiling
-This game can be compiled for both Arduino and PC systems (for debugging and 
-testing purposes). Platform specific instructions (O = yes, X = no):
+This game can be compiled for both Arduino and PC systems (mainly for debugging
+and testing purposes). Platform specific instructions (O = yes, X = no):
 
-| Action                              | PC | Arduino |
-|-------------------------------------|---|---|
-| Define `NONARDUINO` macro           | O | X |
-| Compile source files pc suffix      | O | X |
-| Compile source files arduino suffix | X | O |
-| Include `lib/econio` in build       | O | X |
-| Include `lib/fgy-driver` in build   | X | O |
+| Action                                   | PC | Arduino |
+|------------------------------------------|----|---------|
+| Define `NONARDUINO` macro                | O  | X       |
+| Compile source files with pc suffix      | O  | X       |
+| Compile source files with arduino suffix | X  | O       |
+| Include `lib/econio` in build            | O  | X       |
+| Include `lib/fgy-driver` in build        | X  | O       |
 
 *Note: The `NONARDUINO` macro is planned to be removed to make the code 
 completely modular and work based only on which files are compiled and linked.*
