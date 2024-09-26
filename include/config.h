@@ -41,11 +41,11 @@
 // Base speed (ms/fall) of tetrimino
 #define SPD_BASE 800
 // Speed increase multiplier
-#define SPD_CURVE 220
+#define SPD_CURVE 202
 // Speed increases every x levels
 #define LVL_CURVE 10
 // Final speed level
-#define ULTIMATE_SPD 30
+#define ULTIMATE_SPD 100
 
 /////////////////////////
 // Input Control settings
