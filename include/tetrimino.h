@@ -392,21 +392,7 @@ public:
         resetLoc(x, y);
     }
 
-    explicit Tetrimino(const tetriminoType t, const tetriminoState s,
-                       const tetriminoRotation r = ROTA) : typ(t), rot(r) {
-        if (typ == NONE) {
-            this->x = 0;
-            this->y = 0;
-            return;
-        }
-
-        resetLoc();
-    }
-
     Tetrimino() : Tetrimino(static_cast<tetriminoType>(getRand())) {}
-
-    explicit Tetrimino(const tetriminoState s) :
-        Tetrimino(static_cast<tetriminoType>(getRand()), s) {}
 
     unsigned char get(const int x, const int y, const tetriminoRotation r) const {
         if (typ == NONE) return 0;

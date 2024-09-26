@@ -60,13 +60,13 @@ bool inputHandle::inputAvailable() {
     return false;
 }
 
-Control inputHandle::getInput() { 
-    int key = econio_getch();
+Control inputHandle::getInput() {
+    const int key = econio_getch();
     Control ctrls[] = {CTRL_HARD_DROP, CTRL_SOFT_DROP, CTRL_MOV_R, 
                        CTRL_MOV_L, CTRL_ROT_R, CTRL_ROT_L, CTRL_HOLD};
 
     // Is this necessary? Eh, I'd rather not return an invalid value
-    for (auto a : ctrls) if (key == a) return a;
+    for (const auto a : ctrls) if (key == a) return a;
 
     return CTRL_INV;
 }

@@ -11,7 +11,7 @@ unsigned int field::getSpeed() const {
 }
 
 bool field::merge() {
-    int x = current.getX(), y = current.getY();
+    const int x = current.getX(), y = current.getY();
 
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
@@ -28,7 +28,7 @@ bool field::finishMove() {
 
     current = next;
     current.resetLoc();
-    next = Tetrimino(static_cast<tetriminoType>(getRand()), NEXT);
+    next = Tetrimino(static_cast<tetriminoType>(getRand()));
 
     int cleared = 0;
 
@@ -75,7 +75,7 @@ void field::swap() {
     canSwap = false;
     if (hold.getType() == NONE) {
         hold = next;
-        next = Tetrimino(NEXT);
+        next = Tetrimino();
     }
 
     const auto tmp = hold;
