@@ -58,12 +58,14 @@ bool field::finishMove() {
         return false;
     }
 
+    resetGrace();
     canSwap = true;
     return true;
 }
 
 bool field::fall() {
     if (current.fall(*this)) return true;
+    if (grace > 0) { grace--; return true; }
     this->finishMove();
     return false;
 }
@@ -86,7 +88,7 @@ void field::swap() {
 void field::tick() {
     unsigned long t = time();
     if (prevFrame + getSpeed() < t) {
-        fall();
+        if (fall()) resetGrace();
         prevFrame = t;
     }
 }

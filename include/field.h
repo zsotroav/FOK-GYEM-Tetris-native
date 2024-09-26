@@ -27,11 +27,14 @@ class field {
     
     int score = 0;
 
+    char grace = 1; //!< Number of frames left as a grace period at the end
+    void resetGrace() { grace = 1; }
+
 public:
     unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
 
     Tetrimino current; //!< Current (moving tetrimino)
-    Tetrimino next = Tetrimino(NEXT);
+    Tetrimino next = Tetrimino();
     Tetrimino hold = Tetrimino(NONE);
 
     unsigned int getSpeed() const;
