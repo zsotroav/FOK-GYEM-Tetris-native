@@ -72,7 +72,13 @@ void scoreOverlay(uint8_t arr[21], const unsigned int score) {
 }
 
 void printGameOver(const unsigned int score) {
-    if (DRV_DATABUFF_SIZE != 21) return;
+    if (DRV_DATABUFF_SIZE != 21) {
+        uint8_t b[DRV_DATABUFF_SIZE] = {0};
+        scoreOverlay(b, score);
+        driver_setBuffer(b, DRV_DATABUFF_SIZE);
+        driver_writeScreen();
+        return;
+    }
     
     uint8_t w[] = { 0x30, 0x00, 0x00, 0x2C, 0x03, 0x80, 0x20, 0x00, 0x40, 0x06,
         0x43, 0x80, 0x09, 0x40, 0x40, 0x09, 0x43, 0x80, 0x04, 0xC0, 0x00 };
