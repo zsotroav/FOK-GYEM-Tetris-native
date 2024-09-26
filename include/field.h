@@ -9,7 +9,7 @@
 #include "config.h"
 #include "tetrimino.h"
 
-const short scoreArr[] = {0, 1, 3, 5, 8, 12 };
+const short scoreArr[] = {0, 10, 30, 50, 80, 120 };
 
 class field {    
     /**
@@ -41,6 +41,7 @@ public:
     int getScore() const { return score; }
     bool isValid() const { return valid; }
 
+    void drop(); //!< Hard drop the tetromino
     bool fall();
     bool mov(const bool right) { return current.mov(right, *this); }
     bool rot(const bool right) { return current.rotate(right, *this); }

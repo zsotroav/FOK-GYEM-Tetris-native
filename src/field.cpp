@@ -6,8 +6,8 @@
 #include "common.h"
 
 unsigned int field::getSpeed() const { 
-    if (score >= 128) return ULTIMATE_SPD;
-    return SPD_BASE - sqrt(score/LVL_CURVE) * SPD_CURVE; 
+    if (score >= 1280) return ULTIMATE_SPD;
+    return SPD_BASE - sqrt(score/10/LVL_CURVE) * SPD_CURVE; 
 }
 
 bool field::merge() {
@@ -63,6 +63,12 @@ bool field::finishMove() {
     return true;
 }
 
+void field::drop() {
+    while(current.fall(*this)) ;
+    this->finishMove();
+    score++;
+}
+
 bool field::fall() {
     if (current.fall(*this)) return true;
     if (grace > 0) { grace--; return true; }
@@ -88,7 +94,7 @@ void field::swap() {
 void field::tick() {
     unsigned long t = time();
     if (prevFrame + getSpeed() < t) {
-        if (fall()) resetGrace();
+        fall();
         prevFrame = t;
     }
 }

@@ -10,7 +10,7 @@ void gameUpdateLoop(field& f, inputHandle& ih) {
     if (!ih.inputAvailable()) { return; }
 
     switch (ih.getInput()) {
-        case CTRL_HARD_DROP: while (f.fall()) {} break;
+        case CTRL_HARD_DROP: f.drop(); break;
         case CTRL_SOFT_DROP: f.fall(); sleep(0.1); break;
         case CTRL_MOV_L: f.mov(false); break;
         case CTRL_MOV_R: f.mov(true);  break;
@@ -27,7 +27,7 @@ void masterLoop(inputHandle& ih) {
     field f;
     
     while(f.isValid()) gameUpdateLoop(f, ih);
-    printGameOver(f.getScore());
+    printGameOver(f.getScore()/10);
     sleep(8);
 }
 
