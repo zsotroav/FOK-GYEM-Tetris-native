@@ -28,7 +28,7 @@ bool field::finishMove() {
 
     current = next;
     current.resetLoc();
-    next = Tetrimino(static_cast<tetriminoType>(getRand()));
+    next = Tetromino(static_cast<tetrominoType>(getRand()));
 
     int cleared = 0;
 
@@ -81,7 +81,7 @@ void field::swap() {
     canSwap = false;
     if (hold.getType() == NONE) {
         hold = next;
-        next = Tetrimino();
+        next = Tetromino();
     }
 
     const auto tmp = hold;

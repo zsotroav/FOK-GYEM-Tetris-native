@@ -2,11 +2,11 @@
 // Created by zsotroav on 2024-08-22.
 //
 
-#include "tetrimino.h"
+#include "tetromino.h"
 
 #include "field.h"
 
-bool Tetrimino::mov(const bool right, const field& f) {
+bool Tetromino::mov(const bool right, const field& f) {
     if (typ == NONE) return false;
     const int end = x + (right ? 1 : -1);
     for (int i = 0; i < 5; i++) {
@@ -19,7 +19,7 @@ bool Tetrimino::mov(const bool right, const field& f) {
     return true;
 }
 
-bool Tetrimino::rotate(const bool right, const field& f) {
+bool Tetromino::rotate(const bool right, const field& f) {
     if (typ == NONE) return false;
 
     const auto next = (right ? rot++ : rot--);
@@ -35,7 +35,7 @@ bool Tetrimino::rotate(const bool right, const field& f) {
     return true;
 }
 
-bool Tetrimino::fall(const field& f) {
+bool Tetromino::fall(const field& f) {
     if (typ == NONE) return false;
     const int end = y + 1;
 

@@ -2,23 +2,23 @@
 // Created by zsotroav on 2024-08-20.
 //
 
-#ifndef TETRIMINO_H
-#define TETRIMINO_H
+#ifndef TETROMINO_H
+#define TETROMINO_H
 
 #include "common.h"
 #include "config.h"
 
 class field;
 
-enum tetriminoRotation {
+enum tetrominoRotation {
     ROTA = 0,
     ROTB = 1,
     ROTC = 2,
     ROTD = 3,
 };
 
-// Rotate tetrimino right
-inline tetriminoRotation operator++(const tetriminoRotation& t, int) {
+// Rotate tetromino right
+inline tetrominoRotation operator++(const tetrominoRotation& t, int) {
     switch (t) {
         case ROTA: return ROTB;
         case ROTB: return ROTC;
@@ -27,8 +27,8 @@ inline tetriminoRotation operator++(const tetriminoRotation& t, int) {
     }
 }
 
-// Rotate tetrimino left
-inline tetriminoRotation operator--(const tetriminoRotation& t, int) {
+// Rotate tetromino left
+inline tetrominoRotation operator--(const tetrominoRotation& t, int) {
     switch (t) {
         case ROTA: return ROTD;
         case ROTB: return ROTA;
@@ -37,27 +37,27 @@ inline tetriminoRotation operator--(const tetriminoRotation& t, int) {
     }
 }
 
-enum tetriminoType {
+enum tetrominoType {
     NONE = -1,
-    SQUARE = 0,
+    O = 0,
     I = 1,
     L = 2,
-    LMIRROR = 3,
-    N = 4,
-    NMIRROR = 5,
+    J = 3,
+    Z = 4,
+    S = 5,
     T = 6,
 };
 
-enum tetriminoState {
+enum tetrominoState {
     NEXT,
     HOLD,
     PLAY,
 };
 
 // type x rot x hori x vert
-const unsigned char tetriminos[7][4][5][5] =
+const unsigned char tetrominos[7][4][5][5] =
 {
-    { // Square
+    { // O
         {
             {0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0},
@@ -269,8 +269,8 @@ const unsigned char tetriminos[7][4][5][5] =
     }
 };
 
-const unsigned char tetriminoStored[7][2][3][4] = {
-    { // Square
+const unsigned char tetrominoStored[7][2][3][4] = {
+    { // O
         {
             { 1, 1, 0, 0 },
             { 1, 1, 0, 0 },
@@ -357,16 +357,16 @@ const unsigned char tetriminoStored[7][2][3][4] = {
     }
 };
 
-class Tetrimino {
+class Tetromino {
     int x, y;
-    tetriminoType typ;
-    tetriminoRotation rot;
+    tetrominoType typ;
+    tetrominoRotation rot;
 public:
 
     int getX() const { return x; }
     int getY() const { return y; }
 
-    tetriminoType getType() const { return typ; }
+    tetrominoType getType() const { return typ; }
 
     void resetLoc(const int x = SPAWN_X, const int y = SPAWN_Y) {
         rot = ROTA;
@@ -380,7 +380,7 @@ public:
         }
     }
 
-    explicit Tetrimino(const tetriminoType t, const tetriminoRotation r = ROTA,
+    explicit Tetromino(const tetrominoType t, const tetrominoRotation r = ROTA,
                        const int x = SPAWN_X, const int y = SPAWN_Y
                        ) : typ(t), rot(r) {
         if (typ == NONE) {
@@ -392,25 +392,25 @@ public:
         resetLoc(x, y);
     }
 
-    Tetrimino() : Tetrimino(static_cast<tetriminoType>(getRand())) {}
+    Tetromino() : Tetromino(static_cast<tetrominoType>(getRand())) {}
 
-    unsigned char get(const int x, const int y, const tetriminoRotation r) const {
+    unsigned char get(const int x, const int y, const tetrominoRotation r) const {
         if (typ == NONE) return 0;
-        return tetriminos[typ][r][y][x];
+        return tetrominos[typ][r][y][x];
     }
 
     unsigned char getStored(const int x, const int y, const bool next) const {
         if (typ == NONE) return 0;
-        return tetriminoStored[typ][next ? 0 : 1][y][x];
+        return tetrominoStored[typ][next ? 0 : 1][y][x];
     }
 
     unsigned char get(const int x, const int y) const { return get(x, y, rot); }
 
-    // Probably not the best that the tetrimino is asking for the field, but ehh
+    // Probably not the best that the tetromino is asking for the field, but ehh
     bool rotate(bool right, const field& f);
 
     bool mov(bool right, const field& f);
     bool fall(const field& f);
 };
 
-#endif //TETRIMINO_H
+#endif //TETROMINO_H

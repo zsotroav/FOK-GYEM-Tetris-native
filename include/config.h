@@ -18,11 +18,11 @@
 #define SCREEN_PLAY_ROW (SCREEN_ROW_CNT - SCREEN_SAFE_ROW)
 
 ///////////////////////////////////////
-// Gameplay - spawn point of tetriminos
+// Gameplay - spawn point of tetrominos
 
-// Horizontal tetrimino spawn point
+// Horizontal tetromino spawn point
 #define SPAWN_X 4
-// Vertical tetrimino spawn point
+// Vertical tetromino spawn point
 #define SPAWN_Y 6
 
 // Horizontal held position
@@ -30,15 +30,15 @@
 // Vertical held position
 #define HOLD_Y 2
 
-// Horizontal position of next tetrimino
+// Horizontal position of next tetromino
 #define NEXT_X 2
-// Vertical position of next tetrimino
+// Vertical position of next tetromino
 #define NEXT_Y 2
 
 //////////////////////////////////////////////
-// Difficulty settings (tetrimino fall speeds)
+// Difficulty settings (tetromino fall speeds)
 
-// Base speed (ms/fall) of tetrimino
+// Base speed (ms/fall) of tetromino
 #define SPD_BASE 800
 // Speed increase multiplier
 #define SPD_CURVE 202

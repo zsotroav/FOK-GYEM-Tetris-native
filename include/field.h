@@ -7,13 +7,13 @@
 
 #include "math.h"
 #include "config.h"
-#include "tetrimino.h"
+#include "tetromino.h"
 
 const short scoreArr[] = {0, 10, 30, 50, 80, 120 };
 
 class field {    
     /**
-     * Merge current tetrimino onto the final map
+     * Merge current tetromino onto the final map
      * @returns success notice
      */
     bool merge();
@@ -33,9 +33,9 @@ class field {
 public:
     unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
 
-    Tetrimino current; //!< Current (moving tetrimino)
-    Tetrimino next = Tetrimino();
-    Tetrimino hold = Tetrimino(NONE);
+    Tetromino current; //!< Current (moving tetromino)
+    Tetromino next = Tetromino();
+    Tetromino hold = Tetromino(NONE);
 
     unsigned int getSpeed() const;
     int getScore() const { return score; }
@@ -49,7 +49,7 @@ public:
     void swap();
 
     /**
-     * Finish current tetrimino's movement and set up the next
+     * Finish current tetromino's movement and set up the next
      * @retruns success notice
      */
     bool finishMove();

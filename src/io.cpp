@@ -10,7 +10,7 @@ void bake(unsigned char baked[SCREEN_COL_CNT][SCREEN_ROW_CNT], const field& f) {
         }
     }
     
-    // Current tetrimino
+    // Current tetromino
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             if (f.current.get(j, i) == 0) continue;
@@ -19,7 +19,7 @@ void bake(unsigned char baked[SCREEN_COL_CNT][SCREEN_ROW_CNT], const field& f) {
         }
     }
 
-    // Next and held tetrimino
+    // Next and held tetromino
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 4; j++) {
             baked[j][i]   |= f.next.getStored(j, i, true);

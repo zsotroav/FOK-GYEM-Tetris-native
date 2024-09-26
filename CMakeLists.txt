@@ -15,13 +15,13 @@ add_executable(FOK_GYEM_Tetris_native
         include/common.h
         include/field.h
         include/io.h
-        include/tetrimino.h
+        include/tetromino.h
 
         src/common.pc.cpp
         src/field.cpp
         src/io.cpp
         src/io.pc.cpp
-        src/tetrimino.cpp
+        src/tetromino.cpp
 
         lib/econio/econio.h
         lib/econio/econio.c
