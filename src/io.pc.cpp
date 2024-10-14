@@ -41,7 +41,7 @@ void printMainScreen() {
               << "   to start.   " << std::endl;
 }
 
-void printGameOver(const unsigned int score) {
+void printGameOver(const int score) {
     econio_clrscr();
     econio_gotoxy(0, 0);
     std::cout << "FOK-GYEM Tetris" << std::endl

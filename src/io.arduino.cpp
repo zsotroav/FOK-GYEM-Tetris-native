@@ -63,15 +63,41 @@ void printMainScreen() {
     driver_forceWriteScreen();
 }
 
-void scoreOverlay(uint8_t arr[21], const unsigned int score) {
+void scoreOverlay(uint8_t arr[21], int score) {
+    // 2x5 Number font for scoreboard
+    uint8_t fnt[10][2] = {
+        { B00011111, B00011111 },
+        { B00000000, B00011111 },
+        { B00011101, B00010111 },
+        { B00000111, B00011100 },
+        { B00010111, B00011101 },
+        { B00011111, B00011001 },
+        { B00011001, B00000111 },
+        { B00011011, B00011011 },
+        { B00010011, B00011111 }
+    };
+
+    if (score > 100) {
+        arr[SCREEN_ROW_CNT/8 - 1] |= fnt[1][1];
+        score -= 100;
+    }
+
+    arr[(SCREEN_ROW_CNT*2)/8 - 1] |= fnt[score/10][0];
+    arr[(SCREEN_ROW_CNT*3)/8 - 1] |= fnt[score/10][1];
+
+    arr[(SCREEN_ROW_CNT*5)/8 - 1] |= fnt[score%10][0];
+    arr[(SCREEN_ROW_CNT*6)/8 - 1] |= fnt[score%10][1];
+
+    /*
     uint32_t off = 0x01;
     for (int i = SCREEN_COL_CNT; i > 0; i--) {
         if ((score & off) != 0) arr[(SCREEN_ROW_CNT * (i) - 1)/8] |= 0x01; 
         off <<= 1;
     }
+    */
 }
 
-void printGameOver(const unsigned int score) {
+void printGameOver(const int score) {
     if (DRV_DATABUFF_SIZE != 21) {
         uint8_t b[DRV_DATABUFF_SIZE] = {0};
         scoreOverlay(b, score);
