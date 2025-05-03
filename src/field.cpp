@@ -5,6 +5,20 @@
 #include "field.h"
 #include "common.h"
 
+tetrominoType field::getNextTetromino() {
+    if (bag_idx > 6) {
+        for (int i = 0; i < 6; ++i){
+            tetrominoType curr = bag[i];
+            int swap_to = getRand();
+            bag[i] = bag[swap_to];
+            bag[swap_to] = curr;
+        }
+        bag_idx = 0;
+    }
+
+    return bag[bag_idx++];
+}
+
 unsigned int field::getSpeed() const { 
     if (score >= 1280) return ULTIMATE_SPD;
     return SPD_BASE - sqrt(score/10/LVL_CURVE) * SPD_CURVE; 
@@ -28,7 +42,7 @@ bool field::finishMove() {
 
     current = next;
     current.resetLoc();
-    next = Tetromino(static_cast<tetrominoType>(getRand()));
+    next = Tetromino(getNextTetromino());
 
     int cleared = 0;
 
@@ -81,7 +95,7 @@ void field::swap() {
     canSwap = false;
     if (hold.getType() == NONE) {
         hold = next;
-        next = Tetromino();
+        next = Tetromino(getNextTetromino());
     }
 
     const auto tmp = hold;

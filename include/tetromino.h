@@ -361,6 +361,7 @@ class Tetromino {
     int x, y;
     tetrominoType typ;
     tetrominoRotation rot;
+
 public:
 
     int getX() const { return x; }
@@ -391,8 +392,6 @@ public:
 
         resetLoc(x, y);
     }
-
-    Tetromino() : Tetromino(static_cast<tetrominoType>(getRand())) {}
 
     unsigned char get(const int x, const int y, const tetrominoRotation r) const {
         if (typ == NONE) return 0;

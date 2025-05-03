@@ -10,8 +10,6 @@
 
 void initRand() { randomSeed(analogRead(0)); }
 
-void initRand(unsigned long seed) { randomSeed(seed); }
-
 int getRand(int max) { return random(0, max+1); }
 
 unsigned long time() { return millis(); }

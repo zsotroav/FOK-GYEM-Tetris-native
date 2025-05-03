@@ -30,11 +30,17 @@ class field {
     char grace = 1; //!< Number of frames left as a grace period at the end
     void resetGrace() { grace = 1; }
 
+    
+    tetrominoType bag[7] = { O, I, L, J, Z, S, T };
+    int bag_idx;
+
 public:
     unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
 
-    Tetromino current; //!< Current (moving tetromino)
-    Tetromino next = Tetromino();
+    tetrominoType getNextTetromino();
+
+    Tetromino current; //!< Current (moving) tetromino
+    Tetromino next;
     Tetromino hold = Tetromino(NONE);
 
     unsigned int getSpeed() const;
@@ -59,7 +65,7 @@ public:
      */
     void tick();
 
-    field() {
+    field() : current(getNextTetromino()), next(getNextTetromino()) {
         // Fill in map borders
         for (int i = 0; i < SCREEN_COL_CNT+2; i++) {
             map[0][i] = 1; // Fill top border

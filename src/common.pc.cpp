@@ -5,17 +5,22 @@
  */
 
 #include <cstdlib>
-#include <experimental/random>
 #include <ctime>
+#include <random>
 #include "common.h"
 #include "econio.h"
 
 
-void initRand() { std::srand(std::time(nullptr)); }
+std::mt19937 rng;
 
-void initRand(const unsigned long seed) { std::srand(seed); }
+void initRand() {
+    std::random_device dev;
+    rng = std::mt19937(dev());
+}
 
-int getRand(const int max) { return std::experimental::randint(0, max); }
+int getRand(const int max) {
+    return std::uniform_int_distribution(0, max)(rng);
+}
 
 
 unsigned long time() {

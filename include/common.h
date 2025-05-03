@@ -3,7 +3,6 @@
 
 
 void initRand();
-void initRand(unsigned long seed);
 
 // Get random number [0, max]
 int getRand(int max = 6);
