@@ -66,27 +66,30 @@ void printMainScreen() {
 void scoreOverlay(uint8_t arr[21], int score) {
     // 2x5 Number font for scoreboard
     uint8_t fnt[10][2] = {
-        { B00011111, B00011111 },
-        { B00000000, B00011111 },
-        { B00011101, B00010111 },
-        { B00000111, B00011100 },
-        { B00010111, B00011101 },
-        { B00011111, B00011001 },
-        { B00011001, B00000111 },
-        { B00011011, B00011011 },
-        { B00010011, B00011111 }
+        { B00011111, B00011111 }, // 0
+        { B00000000, B00011111 }, // 1
+        { B00011101, B00010111 }, // 2
+        { B00010101, B00011111 }, // 3
+        { B00000111, B00011100 }, // 4
+        { B00010111, B00011101 }, // 5
+        { B00011111, B00011001 }, // 6
+        { B00011001, B00000111 }, // 7
+        { B00011011, B00011011 }, // 8
+        { B00010011, B00011111 }  // 9
     };
 
-    if (score > 100) {
+    if (score >= 100) {
         arr[SCREEN_ROW_CNT/8 - 1] |= fnt[1][1];
         score -= 100;
     }
 
-    arr[(SCREEN_ROW_CNT*2)/8 - 1] |= fnt[score/10][0];
-    arr[(SCREEN_ROW_CNT*3)/8 - 1] |= fnt[score/10][1];
+    if (score >= 10) {
+        arr[(SCREEN_ROW_CNT*3)/8 - 1] |= fnt[score/10][0];
+        arr[(SCREEN_ROW_CNT*4)/8 - 1] |= fnt[score/10][1];
+    }
 
-    arr[(SCREEN_ROW_CNT*5)/8 - 1] |= fnt[score%10][0];
-    arr[(SCREEN_ROW_CNT*6)/8 - 1] |= fnt[score%10][1];
+    arr[(SCREEN_ROW_CNT*6)/8 - 1] |= fnt[score%10][0];
+    arr[(SCREEN_ROW_CNT*7)/8 - 1] |= fnt[score%10][1];
 
     /*
     uint32_t off = 0x01;
@@ -106,8 +109,8 @@ void printGameOver(const int score) {
         return;
     }
     
-    uint8_t w[] = { 0x00, 0x03, 0x20, 0x01, 0xC2, 0x90, 0x02, 0x02, 0x90, 0x01,
-        0xC2, 0x60, 0x02, 0x00, 0x04, 0x01, 0xC0, 0x34, 0x00, 0x00, 0x0C };
+    uint8_t w[] = { 0x64, 0x00, 0x00, 0x52, 0x0F, 0x00, 0x52, 0x10, 0x00, 0x4C,
+         0x0E, 0x00, 0x00, 0x90, 0x00, 0x06, 0x8F, 0x00, 0x01, 0x80, 0x00 };
 
     uint8_t l[] = { 0x00, 0x00, 0x00, 0x01, 0xFF, 0x00, 0x01, 0xFF, 0x00, 0x01, 
         0x80, 0x00, 0x01, 0x80, 0x00, 0x01, 0x80, 0x00, 0x00, 0x00, 0x00 };
