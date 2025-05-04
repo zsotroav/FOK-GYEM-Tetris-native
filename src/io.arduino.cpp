@@ -78,12 +78,14 @@ void scoreOverlay(uint8_t arr[21], int score) {
         { B00010011, B00011111 }  // 9
     };
 
+    bool second = (score >= 10);
+
     if (score >= 100) {
         arr[SCREEN_ROW_CNT/8 - 1] |= fnt[1][1];
         score -= 100;
     }
 
-    if (score >= 10) {
+    if (second) {
         arr[(SCREEN_ROW_CNT*3)/8 - 1] |= fnt[score/10][0];
         arr[(SCREEN_ROW_CNT*4)/8 - 1] |= fnt[score/10][1];
     }
