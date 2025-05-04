@@ -32,7 +32,7 @@ class field {
 
     
     tetrominoType bag[7] = { O, I, L, J, Z, S, T };
-    int bag_idx;
+    int bag_idx = 7;
 
 public:
     unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
