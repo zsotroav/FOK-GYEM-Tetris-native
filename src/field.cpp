@@ -20,7 +20,7 @@ void field::initBorders() {
 
 void field::addGarbage(const int rows) {
     for (int i = 0; i < rows; ++i) {
-        int col = getRand(SCREEN_COL_CNT) + 1;
+        int col = getRand(SCREEN_COL_CNT-1) + 1;
         for (int j = 1; j <= SCREEN_COL_CNT; ++j)
             map[SCREEN_ROW_CNT-i][j] = (col == j) ? 0 : 1;
     }
