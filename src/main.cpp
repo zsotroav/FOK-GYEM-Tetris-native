@@ -22,10 +22,7 @@ void gameUpdateLoop(field& f, inputHandle& ih) {
 }
 
 // Gameplay loop creating the field and using it until the game ends
-void masterLoop(inputHandle& ih) {
-    // Create a new field to play on
-    field f;
-    
+void masterLoop(inputHandle& ih, field& f) {
     while(f.isValid()) gameUpdateLoop(f, ih);
     printGameOver(f.getScore()/10);
     sleep(8);
@@ -43,9 +40,14 @@ int main() {
         while (!ih.inputAvailable()) { sleep(0.2); }
 
         // Consuming input is required for some systems
-        ih.getInput(); 
+        Control start = ih.getInput(); 
+
+        field f;
+        if (start == CTRL_HOLD)      f = field(START_A_SPD, START_A_GAR);
+        if (start == CTRL_SOFT_DROP) f = field(START_B_SPD, START_B_GAR);
+        if (start == CTRL_HARD_DROP) f = field(START_C_SPD, START_C_GAR);
         
         // Enter the master gameplay loop
-        masterLoop(ih);
+        masterLoop(ih, f);
     }
 }

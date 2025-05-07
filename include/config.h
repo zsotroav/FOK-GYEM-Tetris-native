@@ -47,6 +47,21 @@
 // Final speed level
 #define ULTIMATE_SPD 100
 
+// First starting score (HOLD)
+#define START_A_SPD 50
+// First starting garbage lines
+#define START_A_GAR 3
+
+// First starting score (SDROP)
+#define START_B_SPD 80
+// First starting garbage lines
+#define START_B_GAR 5
+
+// First starting score (HDROP)
+#define START_C_SPD 100
+// First starting garbage lines
+#define START_C_GAR 7
+
 /////////////////////////
 // Input Control settings
 

@@ -34,6 +34,9 @@ class field {
     tetrominoType bag[7] = { O, I, L, J, Z, S, T };
     int bag_idx = 7;
 
+    void initBorders();
+    void addGarbage(int rows);
+
 public:
     unsigned char map[SCREEN_ROW_CNT+2][SCREEN_COL_CNT+2]{0};
 
@@ -65,18 +68,9 @@ public:
      */
     void tick();
 
-    field() : current(getNextTetromino()), next(getNextTetromino()) {
-        // Fill in map borders
-        for (int i = 0; i < SCREEN_COL_CNT+2; i++) {
-            map[0][i] = 1; // Fill top border
-            map[SCREEN_PLAY_ROW][i] = 1;  // Fill separator row
-            map[SCREEN_ROW_CNT+1][i] = 1; // Fill bottom border
-        }
-        for (int i = 0; i < SCREEN_ROW_CNT+2; i++) {
-            map[i][0] = 1; // Fill left border
-            map[i][SCREEN_COL_CNT+1] = 1; // Fill right border
-        }
-        
+    field(int score = 0, int garbage = 0) : current(getNextTetromino()), next(getNextTetromino()), score(score*10) {
+        initBorders();
+        addGarbage(garbage);
     }
 };
 

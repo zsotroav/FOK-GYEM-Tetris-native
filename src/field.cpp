@@ -5,6 +5,27 @@
 #include "field.h"
 #include "common.h"
 
+void field::initBorders() {
+    // Fill in map borders
+    for (int i = 0; i < SCREEN_COL_CNT+2; i++) {
+        map[0][i] = 1; // Fill top border
+        map[SCREEN_PLAY_ROW][i] = 1;  // Fill separator row
+        map[SCREEN_ROW_CNT+1][i] = 1; // Fill bottom border
+    }
+    for (int i = 0; i < SCREEN_ROW_CNT+2; i++) {
+        map[i][0] = 1; // Fill left border
+        map[i][SCREEN_COL_CNT+1] = 1; // Fill right border
+    }
+}
+
+void field::addGarbage(const int rows) {
+    for (int i = 0; i < rows; ++i) {
+        int col = getRand(SCREEN_COL_CNT) + 1;
+        for (int j = 1; j <= SCREEN_COL_CNT; ++j)
+            map[SCREEN_ROW_CNT-i][j] = (col == j) ? 0 : 1;
+    }
+}
+
 tetrominoType field::getNextTetromino() {
     if (bag_idx > 6) {
         for (int i = 0; i < 6; ++i){
