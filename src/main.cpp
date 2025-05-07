@@ -25,7 +25,7 @@ void gameUpdateLoop(field& f, inputHandle& ih) {
 void masterLoop(inputHandle& ih, field& f) {
     while(f.isValid()) gameUpdateLoop(f, ih);
     printGameOver(f.getScore()/10);
-    sleep(8);
+    sleep(5);
 }
 
 int main() {
