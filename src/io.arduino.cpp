@@ -139,6 +139,10 @@ Control inputHandle::getInput() {
 bool inputHandle::inputAvailable() {
     Control curr = getInput();
 
+    if (curr == CTRL_INV) {
+        prev_input = curr;
+        return false;
+    }
     bool re = prev_input != curr;
     prev_input = curr;
     return re;
