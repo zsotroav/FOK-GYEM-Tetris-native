@@ -6,6 +6,12 @@ which are handled automatically via preprocessor statements, but most are split
 into different files marked with suffixes. For more info see the
 [compiling](#Compiling) section.
 
+## Playing
+The game contains a simple main "menu" and can be started by pressing any
+button. If the "HOLD", "SOFT DROP", or "HARD DROP" buttons are pressed, the game
+will start on the configured (see [config.h](include/config.h)) level and
+garbage lines  instead of 0.
+
 ## Requirements
 - SzIG-FOK-GYEM driver controller board 
 - controller keypad with 7 buttons
@@ -13,6 +19,38 @@ into different files marked with suffixes. For more info see the
 OR
 
 - Windows/Linux computer with a keyboard and terminal
+
+### Arduino game controller
+The buttons are wired directly to the GPIO pins and should pull the pin `LOW`
+(to the `GND` pin) when pressed. The controller's GPIO pins can be set in
+[config.h](include/config.h):
+
+```cpp
+typedef enum Control {
+    CTRL_HARD_DROP = A4,
+    CTRL_SOFT_DROP = A2,
+    CTRL_MOV_R = A1,
+    CTRL_MOV_L = A3,
+    CTRL_ROT_R = A5,
+    CTRL_ROT_L = 1,
+    CTRL_HOLD  = 0,
+    CTRL_INV   = -1, // Leave as something invalid
+} Control;
+```
+
+Recommended conroller layout (`D` = Hard Drop, `S` = Soft Drop, `H` = Hold):
+
+```
+   +---+
+   | D |        +---+ +---+
+   +---+        | L | | R |
++---+ +---+     +---+ +---+
+| < | | > |
++---+ +---+        +---+
+   +---+           | H |
+   | S |           +---+
+   +---+
+```
 
 ## Cloning
 The driver for the controller is included as a submodule, as such recursive
@@ -58,6 +96,6 @@ completely modular and work based only on which files are compiled and linked.*
 
 ### Pre-made compiler settings
 - For PC, use the proviced [CMakeLists](./CMakeLists.txt) file.
-- For Arduino, usage of [PlatformIO](https://platformio.org/) with
-[Visual Stuio Code](https://code.visualstudio.com) is recommended with the
-[example pio ini](./platformio.ini.example) file.
+- For Arduino, usage of [PlatformIO](https://platformio.org/) with [Visual Stuio
+Code](https://code.visualstudio.com) is recommended with the [pio
+ini](./platformio.ini) file.

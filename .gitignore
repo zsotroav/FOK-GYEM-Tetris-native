@@ -59,5 +59,4 @@ cmake-build-*/
 *.zip
 
 .pio/
-platformio.ini
 build/
