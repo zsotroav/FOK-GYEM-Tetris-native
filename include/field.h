@@ -42,8 +42,8 @@ public:
 
     tetrominoType getNextTetromino();
 
-    Tetromino current; //!< Current (moving) tetromino
-    Tetromino next;
+    Tetromino current = Tetromino(getNextTetromino()); //!< Current (moving) tetromino
+    Tetromino next = Tetromino(getNextTetromino());
     Tetromino hold = Tetromino(NONE);
 
     unsigned int getSpeed() const;
@@ -68,12 +68,10 @@ public:
      */
     void tick();
 
-    field(int score = 0, int garbage = 0) : current(getNextTetromino()), next(getNextTetromino()), score(score*10) {
+    field(int score = 0, int garbage = 0) : score(score*10) {
         initBorders();
         addGarbage(garbage);
     }
 };
-
-
 
 #endif //FIELD_H

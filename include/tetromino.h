@@ -269,6 +269,7 @@ const unsigned char tetrominos[7][4][5][5] =
     }
 };
 
+// type x next/stored x hori x vert
 const unsigned char tetrominoStored[7][2][3][4] = {
     { // O
         {
